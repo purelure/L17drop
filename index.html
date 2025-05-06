@@ -84,4 +84,29 @@
     }
 
     @keyframes gridmove {
-        
+      from { transform: translate(0, 0); }
+      to { transform: translate(20px, 20px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="glitch">Секретная утечка #L17</div>
+    <p>
+      Что-то происходит в тенях League17. Один из вас нарушил правила игры. <span class="highlight">Игра больше не та.</span><br/>
+      Я нашёл зашифрованные данные. Ты читаешь это — значит, ты ищешь правду.
+    </p>
+    <p>
+      Начни с <span class="highlight">ID</span>: <span class="id" id="decodedID">Загрузка...</span>
+    </p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var base64ID = "VXNlcjE3OkF1cmVsaWFu";
+      var decoded = atob(base64ID);
+      document.getElementById("decodedID").textContent = decoded;
+    });
+  </script>
+</body>
+</html>
