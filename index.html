@@ -94,7 +94,10 @@
       if (event.key === 'Enter') {
         const value = document.getElementById('accessKey').value;
         if (value === 'Darian17') {
-          document.getElementById('successSound').play();
+          const successSound = document.getElementById('successSound');
+          successSound.volume = 0.5; // Уменьшение громкости до 50%
+          successSound.play();
+          
           document.getElementById('intro').innerHTML = "З@гpyзк@ пpoфuЛя...";
           setTimeout(() => {
             document.getElementById('intro').innerHTML = "<span style='color:red'>[0x0033FATAL]: H4ЙД3НЫ 0ШuБku B ПСИ-ПРОФuЛ3</span><br>Пoпытk@ в0ccт@н0вЛeнuя...";
