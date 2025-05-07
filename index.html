@@ -1,53 +1,97 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <!-- мета и стили -->
-  <!-- ... остальной код без изменений ... -->
-
+  <meta charset="UTF-8">
+  <title>Лига 17 — Версия 0.9.7b</title>
   <style>
-    /* ... предыдущие стили ... */
-
-    body::before {
-      content: "";
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background: repeating-linear-gradient(
-        0deg, rgba(0, 255, 255, 0.03) 1px, transparent 20px
-      ), repeating-linear-gradient(
-        90deg, rgba(0, 255, 255, 0.03) 1px, transparent 20px
-      );
-      top: -50%;
-      left: -50%;
-      z-index: -1;
-      animation: gridmove 60s linear infinite;
+    body {
+      background-color: #0d0d0d;
+      color: #00ff99;
+      font-family: monospace;
+      padding: 20px;
     }
-
-    .container {
-      position: relative;
-      /* остальное без изменений */
+    .console-box {
+      border: 1px solid #00ff99;
+      padding: 20px;
+      background-color: #000;
+      max-width: 600px;
+      margin: auto;
     }
-
-    @keyframes gridmove {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(50%, 50%); }
+    .input-field {
+      background: none;
+      border: none;
+      border-bottom: 1px solid #00ff99;
+      color: #00ff99;
+      width: 100%;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    .hidden-message {
+      display: none;
+      color: #ff0066;
+      margin-top: 10px;
+    }
+    .option-button {
+      background-color: #111;
+      border: 1px solid #00ff99;
+      color: #00ff99;
+      padding: 5px 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-family: monospace;
+    }
+    .option-button:hover {
+      background-color: #00ff99;
+      color: #000;
     }
   </style>
 </head>
 <body>
-  <!-- структура страницы -->
-  <div class="container">
-    <h1 class="glitch">Секретная утечка #L17</h1>
-    <p>Текст расследования...</p>
-    <p>Начни с <span class="highlight">ID</span>: <span class="id" id="decodedID">Загрузка...</span></p>
+  <div class="console-box">
+    <div id="intro">
+      Добро пожаловать в систему ЛИГА-17. Версия: 0.9.7b<br>
+      Введите ключ доступа:
+      <input type="text" class="input-field" id="accessKey" onkeydown="checkKey(event)">
+    </div>
+    <div id="nextStep" style="display:none">
+      Доступ разрешён. Пользователь: test_user_013<br>
+      Последняя активность: 17.03.2017<br>
+      <br>
+      <span style="color: #aaa">/log/psyche</span> — Загрузка...
+      <br><br>
+      Выберите прототип монстра:
+      <br>
+      <button class="option-button" onclick="selectMonster('Фантом-17')">Фантом-17</button>
+      <button class="option-button" onclick="selectMonster('Зеркало')">Зеркало</button>
+      <button class="option-button" onclick="selectMonster('Шептун')">Шептун</button>
+      <br>
+      <span class="hidden-message" id="hiddenNote">[СИСТЕМА]: ЭТО НЕ ИГРА. ЕСЛИ ТЫ ЭТО ВИДИШЬ — ТЫ УЖЕ ВНУТРИ.</span>
+      <div id="monsterSelected" style="margin-top:15px;"></div>
+    </div>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var base64ID = "VXNlcjE3OkF1cmVsaWFu";
-      var decoded = atob(base64ID);
-      document.getElementById("decodedID").textContent = decoded;
-    });
+    function checkKey(event) {
+      if (event.key === 'Enter') {
+        const value = document.getElementById('accessKey').value;
+        if (value.toLowerCase() === 'Darian17') {
+          document.getElementById('intro').style.display = 'none';
+          document.getElementById('nextStep').style.display = 'block';
+          setTimeout(() => {
+            document.getElementById('hiddenNote').style.display = 'block';
+          }, 3000);
+        } else {
+          alert('Неверный ключ доступа. Попробуйте снова.');
+        }
+      }
+    }
+
+    function selectMonster(name) {
+      document.getElementById('monsterSelected').innerHTML = `Вы выбрали: <strong>${name}</strong><br><span style="color:#ff0066">Инициализация ментального профиля...</span><br><br><span style="color:#00ffff">Переход в следующую фазу...</span>`;
+      setTimeout(() => {
+        window.location.href = 'https://example.com/forum-entry'; // Здесь можно заменить на настоящий URL следующего этапа
+      }, 3000);
+    }
   </script>
 </body>
 </html>
