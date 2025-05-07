@@ -80,14 +80,14 @@
   </div>
 
   <!-- Звуки -->
-  <audio id="successSound" src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_3a4f2f4be8.mp3?filename=white-noise-17466.mp3"></audio>
-<audio id="keySound" src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_3a4f2f4be8.mp3?filename=white-noise-17466.mp3"></audio>
+  <audio id="keySound" src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_3a4f2f4be8.mp3?filename=white-noise-17466.mp3" preload="auto"></audio>
+  <audio id="successSound" src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_3a4f2f4be8.mp3?filename=white-noise-17466.mp3" preload="auto"></audio>
 
   <script>
     document.getElementById('accessKey').addEventListener('input', () => {
       const sound = document.getElementById('keySound');
       sound.currentTime = 0;
-      sound.play();
+      sound.play().catch(e => console.warn('Ошибка воспроизведения звука ввода:', e));
     });
 
     function checkKey(event) {
@@ -95,8 +95,8 @@
         const value = document.getElementById('accessKey').value;
         if (value === 'Darian17') {
           const successSound = document.getElementById('successSound');
-          successSound.volume = 0.5; // Уменьшение громкости до 50%
-          successSound.play();
+          successSound.volume = 0.5;
+          successSound.play().catch(e => console.warn('Ошибка воспроизведения звука доступа:', e));
           
           document.getElementById('intro').innerHTML = "З@гpyзк@ пpoфuЛя...";
           setTimeout(() => {
