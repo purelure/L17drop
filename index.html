@@ -140,6 +140,14 @@
       glitchSound.volume = 0.3;
       glitchSound.play().catch(e => console.warn("Ошибка воспроизведения звука:", e));
 
+      // Прерывание фонового звука с искажением
+      const bgAudio = document.getElementById('bgAudio');
+      bgAudio.pause();  // Останавливаем фоновый звук
+      setTimeout(() => {
+        bgAudio.currentTime = 0;
+        bgAudio.play().catch(e => console.warn("Ошибка воспроизведения фонового звука:", e));
+      }, 500);  // Воспроизведение через полсекунды с искажением
+
       let monsterText = "";
       switch(name) {
         case 'NightJack':
