@@ -59,19 +59,19 @@
         background: rgba(255, 255, 255, 0.05);
         transform: translate(0, 0);
       }
-      10% {
-        background: rgba(255, 255, 255, 0.1);
-        transform: translate(2px, 2px);
-      }
       20% {
+        background: rgba(255, 255, 255, 0.05);
+        transform: translate(3px, 3px);
+      }
+      40% {
         background: rgba(255, 255, 255, 0.05);
         transform: translate(-3px, -3px);
       }
-      30% {
+      60% {
         background: rgba(255, 255, 255, 0.1);
         transform: translate(5px, -5px);
       }
-      40% {
+      80% {
         background: rgba(255, 255, 255, 0.05);
         transform: translate(0, 0);
       }
@@ -88,7 +88,7 @@
       width: 100%;
       height: 100%;
       background: rgba(255, 255, 255, 0.05);
-      animation: glitch 5s infinite; /* Увеличена продолжительность анимации */
+      animation: glitch 10s infinite; /* Увеличено время анимации */
       pointer-events: none;
       z-index: 999;
       filter: contrast(1.2) brightness(0.8); /* Уменьшена яркость и контраст */
@@ -103,10 +103,10 @@
       width: 100%;
       height: 100%;
       background: url('https://www.transparenttextures.com/patterns/noise.png'); /* Текстура шума */
-      opacity: 0.2; /* Меньше интенсивности */
+      opacity: 0.1; /* Меньше интенсивности */
       pointer-events: none;
       z-index: 1000;
-      animation: staticNoise 0.5s infinite; /* Увеличено время анимации */
+      animation: staticNoise 1s infinite; /* Увеличено время анимации */
     }
 
     /* Анимация случайных помех */
@@ -125,7 +125,7 @@
     /* Эффект искажения изображения */
     .vhs-noise img {
       filter: invert(1) contrast(2) blur(1px); /* Меньше размытия */
-      animation: imgDistortion 2s infinite; /* Увеличено время анимации */
+      animation: imgDistortion 3s infinite; /* Увеличено время анимации */
     }
 
     @keyframes imgDistortion {
@@ -133,7 +133,7 @@
         transform: scale(1) rotate(0deg);
       }
       50% {
-        transform: scale(1.02) rotate(2deg);
+        transform: scale(1.02) rotate(1deg);
       }
       100% {
         transform: scale(1) rotate(0deg);
@@ -194,17 +194,3 @@
           }, 1500);
           setTimeout(() => {
             document.getElementById('intro').style.display = 'none';
-            document.getElementById('nextStep').style.display = 'block';
-            setTimeout(() => {
-              document.getElementById('hiddenNote').style.display = 'block';
-            }, 3000);
-          }, 3000);
-        } else {
-          alert('Н3в3pHЫЙ kЛЮ4. П0ПЫтk@ cн0в@.');
-        }
-      }
-    }
-
-    function selectMonster(name) {
-      document.getElementById('monsterSelected').innerHTML =
-        `BЫ выбpaЛ: <strong>${name}</strong><br><span style="color:#ff0066">uHuцu@Лuз@
