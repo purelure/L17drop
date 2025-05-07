@@ -65,33 +65,4 @@
       <button class="option-button" onclick="selectMonster('Зеркало')">Зеркало</button>
       <button class="option-button" onclick="selectMonster('Шептун')">Шептун</button>
       <br>
-      <span class="hidden-message" id="hiddenNote">[СИСТЕМА]: ЭТО НЕ ИГРА. ЕСЛИ ТЫ ЭТО ВИДИШЬ — ТЫ УЖЕ ВНУТРИ.</span>
-      <div id="monsterSelected" style="margin-top:15px;"></div>
-    </div>
-  </div>
-
-  <script>
-    function checkKey(event) {
-      if (event.key === 'Enter') {
-        const value = document.getElementById('accessKey').value;
-        if (value.toLowerCase() === 'Darian17') {
-          document.getElementById('intro').style.display = 'none';
-          document.getElementById('nextStep').style.display = 'block';
-          setTimeout(() => {
-            document.getElementById('hiddenNote').style.display = 'block';
-          }, 3000);
-        } else {
-          alert('Неверный ключ доступа. Попробуйте снова.');
-        }
-      }
-    }
-
-    function selectMonster(name) {
-      document.getElementById('monsterSelected').innerHTML = `Вы выбрали: <strong>${name}</strong><br><span style="color:#ff0066">Инициализация ментального профиля...</span><br><br><span style="color:#00ffff">Переход в следующую фазу...</span>`;
-      setTimeout(() => {
-        window.location.href = 'https://example.com/forum-entry'; // Здесь можно заменить на настоящий URL следующего этапа
-      }, 3000);
-    }
-  </script>
-</body>
-</html>
+      <span class="hidden-message" id="hiddenNo
