@@ -5,44 +5,40 @@
   <title>L34GU3-17 — 1.4.14b</title>
   <style>
     body {
-      background-color: #0d0d0d;
-      color: red;
+      background-color: #000;
+      color: #0f0;
       font-family: monospace;
       padding: 20px;
       overflow: hidden;
     }
     .console-box {
-      border: 1px solid red;
+      border: 1px solid #0f0;
       padding: 20px;
       background-color: #000;
-      max-width: 600px;
+      max-width: 700px;
       margin: auto;
     }
     .input-field {
       background: none;
       border: none;
-      border-bottom: 1px solid red;
-      color: red;
+      border-bottom: 1px solid #0f0;
+      color: #0f0;
       width: 100%;
       font-size: 16px;
       margin-top: 10px;
     }
-    .hidden-message {
-      display: none;
-      margin-top: 10px;
-      color: red;
-    }
     .text-button {
       background: none;
       border: none;
-      color: red;
+      color: #0f0;
       font-size: 18px;
       font-family: monospace;
       cursor: pointer;
       text-decoration: underline;
+      margin: 5px 0;
     }
     .text-button:hover {
-      color: #ff0000;
+      color: #8f8;
     }
     .blinking-cursor::after {
       content: ' █';
@@ -65,120 +61,109 @@
     .centered {
       text-align: center;
     }
-    #startSession {
+    #startSession, #intro, #nextStep, #monsterSelected {
+      display: none;
+    }
+    .visible {
       display: block;
     }
-    #intro, #nextStep {
-      display: none;
+    .loading {
+      animation: flicker 1.5s infinite;
+    }
+    @keyframes flicker {
+      0% { opacity: 1; }
+      50% { opacity: 0.2; }
+      100% { opacity: 1; }
     }
   </style>
 </head>
 <body>
   <div class="console-box">
-    <div id="startSession" class="centered">
+    <!-- Заставка -->
+    <div id="startSession" class="centered visible">
       <p>Система: L34GU3-17<br>Версия: 1.4.14b</p>
       <button class="text-button" onclick="startSession()">[НАЧАТЬ СЕАНС]</button>
     </div>
 
+    <!-- Ввод ключа -->
     <div id="intro">
       З@гpузk@ 7epMuHaЛ@...<br><br>
       Вв3дит3 kЛю4 д0cтyп@ или п4р0лb:<span class="blinking-cursor"></span>
       <input type="text" class="input-field" id="accessKey" onkeydown="checkKey(event)">
     </div>
 
+    <!-- Выбор -->
     <div id="nextStep">
       Д0cтyп p@зp3ш3н. П0Льз0в@т3Ль: t35t_uz3r_013<br>
       П0cЛ3дн99 @kтuвн0c7ь: 01.04.2014<br><br>
-      <span style="color: red">/l50/0P3R4T10N M3W7TW0</span> — 3@гpyзк@...<br><br>
-      <span style="color:red;">m4k3 y0ur ch01c3:</span><br>
-      <button class="text-button" onclick="selectMonster('NightJack')">NightJack</button>
-      <button class="text-button" onclick="selectMonster('Oo_oO')">Oo_oO</button>
-      <button class="text-button" onclick="selectMonster('Trogwar')">Trogwar</button><br>
-      <span class="hidden-message glitch-effect" id="hiddenNote">[C1CT3M@]: 3t0 н3 uгpa. Eсли ты 3т0 видuшb — ты yж3 внy7pu. Б3гИ.</span>
+      <span style="color: #f00">/l50/0P3R4T10N M3W7TW0</span> — 3@гpyзк@...<br><br>
+      <span>m4k3 y0ur ch01c3:</span><br>
+      <button class="text-button" onclick="selectMonster('NightJack')">Ph4nt0m-17</button>
+      <button class="text-button" onclick="selectMonster('Oo_oO')">Z3rk4L0</button>
+      <button class="text-button" onclick="selectMonster('Trogwar')">Sh3pT00n</button><br>
+      <div class="glitch-effect" id="hiddenNote" style="margin-top:15px; display:none;">
+        [C1CT3M@]: 3т0 н3 uгpa. Eсли ты 3т0 видuшb — ты yж3 внy7pu. Б3гИ.
+      </div>
       <div id="monsterSelected" style="margin-top:15px;"></div>
     </div>
   </div>
 
+  <!-- Звуки -->
+  <audio id="glitchSound" src="https://www.soundjay.com/button/sounds/beep-07.mp3" preload="auto"></audio>
+  <audio id="ambientSound" src="https://cdn.pixabay.com/download/audio/2023/04/10/audio_9868a45f3c.mp3?filename=digital-terminal-background-ambient-143687.mp3" preload="auto" loop></audio>
+
   <script>
-    let audioContext;
-    let backgroundBuffer;
-    let glitchBuffer;
-    let backgroundSource;
+    function startSession() {
+      const ambient = document.getElementById('ambientSound');
+      ambient.volume = 0.4;
+      ambient.play().catch(e => console.warn("Фоновый звук не воспроизводится:", e));
 
-    async function loadAudio(url) {
-      const response = await fetch(url);
-      const arrayBuffer = await response.arrayBuffer();
-      return await audioContext.decodeAudioData(arrayBuffer);
-    }
-
-    async function startSession() {
-      // Инициализация AudioContext
-      audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-      // Загрузка аудиофайлов
-      try {
-        backgroundBuffer = await loadAudio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c92d1b7dc.mp3');
-        glitchBuffer = await loadAudio('https://cdn.pixabay.com/download/audio/2021/09/08/audio_b85f1cb8d1.mp3');
-      } catch (e) {
-        console.error('Ошибка загрузки аудио:', e);
-      }
-
-      // Воспроизведение фоновой музыки
-      if (backgroundBuffer) {
-        backgroundSource = audioContext.createBufferSource();
-        backgroundSource.buffer = backgroundBuffer;
-        backgroundSource.loop = true;
-        backgroundSource.connect(audioContext.destination);
-        backgroundSource.start(0);
-      }
-
-      document.getElementById('startSession').style.display = 'none';
-      document.getElementById('intro').style.display = 'block';
+      document.getElementById('startSession').classList.remove('visible');
+      const intro = document.getElementById('intro');
+      intro.classList.add('visible');
     }
 
     function checkKey(event) {
       if (event.key === 'Enter') {
-        const value = document.getElementById('accessKey').value;
-        if (value === '01042014') {
-          document.getElementById('intro').innerHTML = "З@гpyзк@ пpoфuЛя...";
+        const key = document.getElementById('accessKey').value;
+        if (key === '01042014') {
+          const intro = document.getElementById('intro');
+          intro.innerHTML = "<span class='loading'>З@гpyзк@ пpoфuЛя...</span>";
           setTimeout(() => {
-            document.getElementById('intro').innerHTML = "<span style='color:red'>[0x0033FATALERROR]: H4ЙД3НЫ 0ШuБku B ПРОФuЛ3, OP3R@T10N D3F4UL7, C0D3: Чц кън рцины. Я. XVI</span><br>П0пы7k@ в3л0м@...";
+            intro.innerHTML = "<span style='color:red'>[0x0033FATALERROR]: H4ЙД3НЫ 0ШuБku B ПРОФuЛ3<br>OP3R@T10N D3F4UL7<br>C0D3: Чц кън рцины. Я. XVI</span><br><br>П0пы7k@ в3л0м@...";
           }, 1500);
           setTimeout(() => {
-            document.getElementById('intro').style.display = 'none';
-            document.getElementById('nextStep').style.display = 'block';
+            intro.classList.remove('visible');
+            document.getElementById('nextStep').classList.add('visible');
             setTimeout(() => {
               document.getElementById('hiddenNote').style.display = 'block';
-            }, 3000);
-          }, 3000);
+            }, 2500);
+          }, 4000);
         } else {
-          alert('Н3в3pHЫЙ kЛЮ4. П0ПЫтk@ cн0в@.');
+          alert("Н3в3pHЫЙ kЛЮ4. П0ПЫтk@ cн0в@.");
         }
       }
     }
 
-    function selectMonster(name) {
-      // Воспроизведение звука искажения
-      if (glitchBuffer) {
-        const glitchSource = audioContext.createBufferSource();
-        glitchSource.buffer = glitchBuffer;
-        glitchSource.connect(audioContext.destination);
-        glitchSource.start(0);
-      }
+    function selectMonster(monster) {
+      const glitch = document.getElementById('glitchSound');
+      glitch.currentTime = 0;
+      glitch.volume = 0.6;
+      glitch.play().catch(e => console.warn("Глитч звук не воспроизводится:", e));
 
-      let monsterText = "";
-      switch(name) {
+      let message = '';
+      switch(monster) {
         case 'NightJack':
-          monsterText = "<div class='glitch-effect'>U 7E6YA.<br><br>I F33L<br>YOU NEED.</div>";
+          message = "<div class='glitch-effect'>U 7E6YA.<br><br>I F33L<br>YOU NEED.</div>";
           break;
         case 'Oo_oO':
-          monsterText = "<div class='glitch-effect'>VSE.<br><br>Y0UR.<br>TO GO.</div>";
+          message = "<div class='glitch-effect'>VSE.<br><br>Y0UR.<br>TO GO.</div>";
           break;
         case 'Trogwar':
-          monsterText = "<div class='glitch-effect'>P0LY417CYA.<br><br>F34R.<br>BACK.</div>";
+          message = "<div class='glitch-effect'>P0LY417CYA.<br><br>F34R.<br>BACK.</div>";
           break;
       }
-      document.getElementById('monsterSelected').innerHTML = monsterText;
+      document.getElementById('monsterSelected').innerHTML = message;
     }
   </script>
 </body>
