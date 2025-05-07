@@ -65,7 +65,6 @@
       animation: glitch-text 0.3s infinite;
     }
 
-    /* Визуальные артефакты */
     .glitch-overlay {
       position: fixed;
       top: 0;
@@ -94,6 +93,16 @@
       80% { transform: translate(1px, -1px); }
       100% { transform: translate(0, 0); }
     }
+
+    .start-button {
+      margin-top: 20px;
+      background: none;
+      border: 1px solid red;
+      color: red;
+      padding: 10px;
+      font-family: monospace;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -102,8 +111,11 @@
   <div class="console-box">
     <div id="intro">
       D0bp0 p0жaЛ0в@ть в c1cт3му |_I9A-17. V3pCИЯ: 0ld l3@gu3 1.4.14b<br>
-      Bв3дит3 kЛю4 д0cтyп@ или п4р0лb:<span class="blinking-cursor"></span>
-      <input type="text" class="input-field" id="accessKey" onkeydown="checkKey(event)">
+      <button class="start-button" onclick="startSession()">НАЧАТЬ СЕАНС</button>
+      <div id="auth" style="display:none;">
+        Bв3дит3 kЛю4 д0cтyп@ или п4р0лb:<span class="blinking-cursor"></span><br>
+        <input type="text" class="input-field" id="accessKey" onkeydown="checkKey(event)">
+      </div>
     </div>
 
     <div id="nextStep" style="display:none">
@@ -119,15 +131,24 @@
     </div>
   </div>
 
-  <!-- Звуки -->
+  <!-- Аудио -->
   <audio id="keySound" src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_3a4f2f4be8.mp3?filename=white-noise-17466.mp3" preload="auto"></audio>
   <audio id="successSound" src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_3a4f2f4be8.mp3?filename=white-noise-17466.mp3" preload="auto"></audio>
 
   <script>
-    document.getElementById('accessKey').addEventListener('input', () => {
+    let sessionStarted = false;
+
+    function startSession() {
+      sessionStarted = true;
+      document.getElementById('auth').style.display = 'block';
+      document.querySelector('.start-button').style.display = 'none';
+    }
+
+    document.getElementById('accessKey').addEventListener('keydown', () => {
+      if (!sessionStarted) return;
       const sound = document.getElementById('keySound');
       sound.currentTime = 0;
-      sound.play().catch(e => console.warn('Ошибка воспроизведения звука ввода:', e));
+      sound.play().catch(e => console.warn('Ошибка звука ввода:', e));
     });
 
     function checkKey(event) {
@@ -136,7 +157,7 @@
         if (value === '01042014') {
           const successSound = document.getElementById('successSound');
           successSound.volume = 0.5;
-          successSound.play().catch(e => console.warn('Ошибка воспроизведения звука доступа:', e));
+          successSound.play().catch(e => console.warn('Ошибка звука доступа:', e));
           document.getElementById('intro').innerHTML = "З@гpyзк@ пpoфuЛя...";
           setTimeout(() => {
             document.getElementById('intro').innerHTML = "<span style='color:red'>[0x0033FATALERROR]: H4ЙД3НЫ 0ШuБku B ПРОФuЛ3, OP3R@T10N D3F4UL7, C0D3: Чц кън рцины. Я. XVI</span><br>П0пы7k@ в3л0м@...";
@@ -165,8 +186,6 @@
           break;
         case 'Trogwar':
           monsterText = "<div class='glitch-effect'>P0LY417CYA.<br><br>F34R.<br>BACK.</div>";
-          break;
-        default:
           break;
       }
       document.getElementById('monsterSelected').innerHTML = monsterText;
