@@ -99,34 +99,41 @@
     </div>
   </div>
 
-  <!-- Фоновая музыка -->
-  <audio id="backgroundSound" preload="auto" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c92d1b7dc.mp3" type="audio/mpeg">
-    Ваш браузер не поддерживает аудио.
-  </audio>
-
-  <!-- Звук искажения -->
-  <audio id="glitchSound" preload="auto">
-    <source src="https://cdn.pixabay.com/download/audio/2021/09/08/audio_b85f1cb8d1.mp3" type="audio/mpeg">
-    Ваш браузер не поддерживает аудио.
-  </audio>
-
   <script>
-    function startSession() {
-      const backgroundSound = document.getElementById('backgroundSound');
+    let audioContext;
+    let backgroundBuffer;
+    let glitchBuffer;
+    let backgroundSource;
+
+    async function loadAudio(url) {
+      const response = await fetch(url);
+      const arrayBuffer = await response.arrayBuffer();
+      return await audioContext.decodeAudioData(arrayBuffer);
+    }
+
+    async function startSession() {
+      // Инициализация AudioContext
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+      // Загрузка аудиофайлов
+      try {
+        backgroundBuffer = await loadAudio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c92d1b7dc.mp3');
+        glitchBuffer = await loadAudio('https://cdn.pixabay.com/download/audio/2021/09/08/audio_b85f1cb8d1.mp3');
+      } catch (e) {
+        console.error('Ошибка загрузки аудио:', e);
+      }
+
+      // Воспроизведение фоновой музыки
+      if (backgroundBuffer) {
+        backgroundSource = audioContext.createBufferSource();
+        backgroundSource.buffer = backgroundBuffer;
+        backgroundSource.loop = true;
+        backgroundSource.connect(audioContext.destination);
+        backgroundSource.start(0);
+      }
 
       document.getElementById('startSession').style.display = 'none';
       document.getElementById('intro').style.display = 'block';
-
-      // Запускаем фоновый звук по клику
-      backgroundSound.load(); // важно
-      backgroundSound.volume = 0.5;
-
-      backgroundSound.play().then(() => {
-        console.log("Фоновый звук воспроизводится");
-      }).catch(err => {
-        console.warn("Ошибка запуска фонового звука:", err);
-      });
     }
 
     function checkKey(event) {
@@ -151,10 +158,13 @@
     }
 
     function selectMonster(name) {
-      const glitchSound = document.getElementById('glitchSound');
-      glitchSound.currentTime = 0;
-      glitchSound.volume = 0.7;
-      glitchSound.play().catch(e => console.warn("Ошибка воспроизведения звука:", e));
+      // Воспроизведение звука искажения
+      if (glitchBuffer) {
+        const glitchSource = audioContext.createBufferSource();
+        glitchSource.buffer = glitchBuffer;
+        glitchSource.connect(audioContext.destination);
+        glitchSource.start(0);
+      }
 
       let monsterText = "";
       switch(name) {
