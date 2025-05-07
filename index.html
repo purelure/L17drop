@@ -9,7 +9,9 @@
       color: #00ff99;
       font-family: monospace;
       padding: 20px;
+      overflow: hidden; /* Предотвращает прокрутку страницы */
     }
+
     .console-box {
       border: 1px solid #00ff99;
       padding: 20px;
@@ -17,6 +19,7 @@
       max-width: 600px;
       margin: auto;
     }
+
     .input-field {
       background: none;
       border: none;
@@ -26,83 +29,39 @@
       font-size: 16px;
       margin-top: 10px;
     }
-    .hidden-message {
-      display: none;
-      color: #ff0066;
-      margin-top: 10px;
-    }
-    .option-button {
-      background-color: #111;
-      border: 1px solid #00ff99;
-      color: #00ff99;
-      padding: 5px 10px;
-      margin-top: 10px;
-      cursor: pointer;
-      font-family: monospace;
-    }
-    .option-button:hover {
-      background-color: #00ff99;
-      color: #000;
-    }
+
     .blinking-cursor::after {
       content: ' █';
       animation: blink 1s step-start infinite;
     }
+
     @keyframes blink {
       50% { opacity: 0; }
     }
 
-    /* Эффект трескающегося экрана */
-    @keyframes glitch {
-      0% {
-        background: rgba(255, 255, 255, 0.05);
-        transform: translate(0, 0);
-      }
-      10% {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translate(3px, 3px);
-      }
-      20% {
-        background: rgba(255, 255, 255, 0.1);
-        transform: translate(-5px, -5px);
-      }
-      30% {
-        background: rgba(255, 255, 255, 0.15);
-        transform: translate(2px, -4px);
-      }
-      40% {
-        background: rgba(255, 255, 255, 0.05);
-        transform: translate(-2px, 2px);
-      }
-      50% {
-        background: rgba(255, 255, 255, 0.1);
-        transform: translate(4px, -1px);
-      }
-      60% {
-        background: rgba(255, 255, 255, 0.05);
-        transform: translate(0, 0);
-      }
-      100% {
-        background: rgba(255, 255, 255, 0.1);
-        transform: translate(0, 0);
-      }
-    }
-
+    /* Эффект VHS-помех */
     .vhs-noise {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      animation: glitch 1s infinite;
+      background: url('https://cdn.pixabay.com/download/audio/2022/03/22/audio_3a4f2f4be8.mp3?filename=white-noise-17466.mp3') repeat;
+      opacity: 0.3;
       pointer-events: none;
-      z-index: 999;
+      animation: noise 0.1s infinite;
+    }
+
+    @keyframes noise {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(2px, 2px); }
+      100% { transform: translate(0, 0); }
     }
   </style>
 </head>
 <body>
-  <div class="vhs-noise"></div> <!-- Элемент для шума на экране -->
+  <!-- Элемент для эффекта VHS помех -->
+  <div class="vhs-noise"></div>
 
   <div class="console-box">
     <div id="intro">
