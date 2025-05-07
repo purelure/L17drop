@@ -2,16 +2,15 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>|_I9A-17 — 1.4.14b</title>
+  <title>|_I9A-17 — v0.9.7b</title>
   <style>
     body {
       background-color: #0d0d0d;
       color: #00ff99;
       font-family: monospace;
       padding: 20px;
-      overflow: hidden; /* Предотвращает прокрутку страницы */
+      overflow: hidden;
     }
-
     .console-box {
       border: 1px solid #00ff99;
       padding: 20px;
@@ -19,7 +18,6 @@
       max-width: 600px;
       margin: auto;
     }
-
     .input-field {
       background: none;
       border: none;
@@ -29,38 +27,93 @@
       font-size: 16px;
       margin-top: 10px;
     }
-
+    .hidden-message {
+      display: none;
+      color: #ff0066;
+      margin-top: 10px;
+    }
+    .option-button {
+      background-color: #111;
+      border: 1px solid #00ff99;
+      color: #00ff99;
+      padding: 5px 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-family: monospace;
+    }
+    .option-button:hover {
+      background-color: #00ff99;
+      color: #000;
+    }
     .blinking-cursor::after {
       content: ' █';
-      animation: blink 1s step-start infinite;
+      animation: blink 1.2s step-start infinite;
     }
-
     @keyframes blink {
       50% { opacity: 0; }
     }
 
-    /* Эффект VHS-помех */
+    @keyframes glitch {
+      0%, 100% { transform: translate(0, 0); }
+      10% { transform: translate(4px, -4px); }
+      20% { transform: translate(-4px, 4px); }
+      30% { transform: translate(3px, -2px); }
+      40% { transform: translate(-3px, 2px); }
+      50% { transform: translate(5px, 0); }
+      60% { transform: translate(0, -5px); }
+      70% { transform: translate(-5px, 5px); }
+      80% { transform: translate(2px, -2px); }
+      90% { transform: translate(-2px, 2px); }
+    }
+
     .vhs-noise {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('https://cdn.pixabay.com/download/audio/2022/03/22/audio_3a4f2f4be8.mp3?filename=white-noise-17466.mp3') repeat;
-      opacity: 0.3;
+      background: rgba(255, 255, 255, 0.03);
+      animation: glitch 1s infinite;
       pointer-events: none;
-      animation: noise 0.1s infinite;
+      z-index: 999;
+      filter: contrast(1.6) brightness(0.5) sepia(0.5);
     }
 
-    @keyframes noise {
+    .vhs-noise::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/noise.png');
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 1000;
+      animation: staticNoise 0.15s infinite;
+    }
+
+    @keyframes staticNoise {
       0% { transform: translate(0, 0); }
-      50% { transform: translate(2px, 2px); }
-      100% { transform: translate(0, 0); }
+      50% { transform: translate(3px, -3px); }
+      100% { transform: translate(-3px, 3px); }
+    }
+
+    .vhs-noise img {
+      filter: invert(1) contrast(2) blur(2px);
+      animation: imgDistortion 1.5s infinite;
+    }
+
+    @keyframes imgDistortion {
+      0% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.03) rotate(3deg); }
+      50% { transform: scale(1) rotate(0deg); }
+      75% { transform: scale(0.97) rotate(-3deg); }
+      100% { transform: scale(1) rotate(0deg); }
     }
   </style>
 </head>
 <body>
-  <!-- Элемент для эффекта VHS помех -->
   <div class="vhs-noise"></div>
 
   <div class="console-box">
@@ -72,23 +125,18 @@
 
     <div id="nextStep" style="display:none">
       Д0cтyп p@зpeшён. П0Льз0в@тeЛь: t35t_uz3r_013<br>
-      П0cЛ3дняя @kтuвн0cть: 01.04.2014<br>
-      <br>
-      <span style="color: #aaa">/l09/p5yCh3</span> — 3@гpyзк@...
-      <br><br>
-      m4k3 y0ur ch01c3:
-      <br>
+      П0cЛ3дняя @kтuвн0cть: 01.04.2014<br><br>
+      <span style="color: #aaa">/l09/p5yCh3</span> — 3@гpyзк@...<br><br>
+      Bы6epu м0нcтp-пp0т0тuп:<br>
       <button class="option-button" onclick="selectMonster('Ph4nt0m-17')">Ph4nt0m-17</button>
       <button class="option-button" onclick="selectMonster('Z3rk4L0')">Z3rk4L0</button>
-      <button class="option-button" onclick="selectMonster('Sh3pT00n')">Sh3pT00n</button>
-      <br>
-      <span class="hidden-message" id="hiddenNote">[C1CT3M@]: 3t0 н3 uгpa. Eсли ты 3т0 видuшb — ты yж3 внyтpu. Б3гИ.</span>
+      <button class="option-button" onclick="selectMonster('Sh3pT00n')">Sh3pT00n</button><br>
+      <span class="hidden-message" id="hiddenNote">[C1CT3M@]: 3t0 н3 uгpa. Eсли ты 3т0 видuшb — ты yж3 внyтpu. Б3гИ, п0к@ есТb в0зм0жн0сТь, 3t0 н3 шу7к@.</span>
       <div id="monsterSelected" style="margin-top:15px;"></div>
       <iframe id="monsterVideo" width="100%" height="315" src="" frameborder="0" style="display:none; margin-top:15px;"></iframe>
     </div>
   </div>
 
-  <!-- Звуки -->
   <audio id="keySound" src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_3a4f2f4be8.mp3?filename=white-noise-17466.mp3" preload="auto"></audio>
   <audio id="successSound" src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_3a4f2f4be8.mp3?filename=white-noise-17466.mp3" preload="auto"></audio>
 
@@ -96,39 +144,37 @@
     document.getElementById('accessKey').addEventListener('input', () => {
       const sound = document.getElementById('keySound');
       sound.currentTime = 0;
-      sound.play().catch(e => console.warn('Ошибка воспроизведения звука ввода:', e));
+      sound.play().catch(e => console.warn('Ошибка звука ввода:', e));
     });
 
     function checkKey(event) {
       if (event.key === 'Enter') {
         const value = document.getElementById('accessKey').value;
-        if (value === '01042014') {  // Пароль изменён
+        if (value === '01042014') {
           const successSound = document.getElementById('successSound');
           successSound.volume = 0.5;
-          successSound.play().catch(e => console.warn('Ошибка воспроизведения звука доступа:', e));
+          successSound.play().catch(e => console.warn('Ошибка звука доступа:', e));
           
           document.getElementById('intro').innerHTML = "З@гpyзк@ пpoфuЛя...";
           setTimeout(() => {
-            document.getElementById('intro').innerHTML = "<span style='color:red'>[0x0033FATAL]: H4ЙД3НЫ 0ШuБku B ПРОФuЛ3, OP3R@T10N D3F4UL7, С0D3: Чц рцины чыкны. Я. XVI</span><br>Пoпытk@ в0ccт@н0вЛeнuя...";
-          }, 1500);
-          setTimeout(() => {
-            document.getElementById('intro').style.display = 'none';
-            document.getElementById('nextStep').style.display = 'block';
+            document.getElementById('intro').innerHTML = "<span style='color:red'>[0x0033FATAL]: H4ЙД3НЫ 0ШuБku B ПРОФuЛ3, OP3R@T10N D3F4UL7</span><br>H3yc7@H0вk@, @вт0пepeз@гpyзк@...";
             setTimeout(() => {
+              document.getElementById('intro').style.display = 'none';
+              document.getElementById('nextStep').style.display = 'block';
               document.getElementById('hiddenNote').style.display = 'block';
-            }, 3000);
-          }, 3000);
+            }, 2500);
+          }, 2000);
         } else {
-          alert('Н3в3pHЫЙ kЛЮ4. П0ПЫтk@ cн0в@.');
+          alert("Д0cтyп 0Tkaзaн.");
         }
       }
     }
 
     function selectMonster(name) {
-      document.getElementById('monsterSelected').innerHTML =
-        `BЫ выбpaЛ: <strong>${name}</strong><br><span style="color:#ff0066">uHuцu@Лuз@цuя м3нт@Льн0г0 пpoфuЛя...</span><br><br><span style="color:#00ffff">П3pexoд в 3т@п 2...</span>`;
-      document.getElementById('monsterVideo').src = "https://www.youtube.com/embed/z9Ul9ccDOqE?autoplay=1&mute=1";
-      document.getElementById('monsterVideo').style.display = 'block';
+      document.getElementById('monsterSelected').innerText = `З@гpyзк@ фpaгм3нт@: ${name}...`;
+      const video = document.getElementById('monsterVideo');
+      video.style.display = 'block';
+      video.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1";
     }
   </script>
 </body>
