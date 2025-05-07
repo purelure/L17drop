@@ -44,15 +44,23 @@
       background-color: #00ff99;
       color: #000;
     }
+    .blinking-cursor::after {
+      content: ' █';
+      animation: blink 1s step-start infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
   </style>
 </head>
 <body>
   <div class="console-box">
     <div id="intro">
       D0bpo p0жaЛ0в@ть в cиcт3му |_I9A-17. V3pCИЯ: 0.9.7b<br>
-      Bв3дит3 kЛю4 д0cтyп@:
+      Bв3дит3 kЛю4 д0cтyп@:<span class="blinking-cursor"></span>
       <input type="text" class="input-field" id="accessKey" onkeydown="checkKey(event)">
     </div>
+
     <div id="nextStep" style="display:none">
       Д0cтyп p@зpeшён. П0Льз0в@тeЛь: t35t_uz3r_013<br>
       П0cЛ3дняя @kтuвн0cть: 17.03.2017<br>
@@ -67,18 +75,36 @@
       <br>
       <span class="hidden-message" id="hiddenNote">[C1CT3M@]: 3t0 н3 uгpa. Eсли ты 3т0 видuш — ты yж3 внyтpu.</span>
       <div id="monsterSelected" style="margin-top:15px;"></div>
+      <iframe id="monsterVideo" width="100%" height="315" src="" frameborder="0" style="display:none; margin-top:15px;"></iframe>
     </div>
   </div>
 
+  <!-- Звуки -->
+  <audio id="keySound" src="https://www.myinstants.com/media/sounds/keyboard-1.mp3"></audio>
+  <audio id="successSound" src="https://www.myinstants.com/media/sounds/windows-xp-startup.mp3"></audio>
+
   <script>
+    document.getElementById('accessKey').addEventListener('input', () => {
+      const sound = document.getElementById('keySound');
+      sound.currentTime = 0;
+      sound.play();
+    });
+
     function checkKey(event) {
       if (event.key === 'Enter') {
         const value = document.getElementById('accessKey').value;
         if (value === 'Darian17') {
-          document.getElementById('intro').style.display = 'none';
-          document.getElementById('nextStep').style.display = 'block';
+          document.getElementById('successSound').play();
+          document.getElementById('intro').innerHTML = "З@гpyзк@ пpoфuЛя...";
           setTimeout(() => {
-            document.getElementById('hiddenNote').style.display = 'block';
+            document.getElementById('intro').innerHTML = "<span style='color:red'>[0x0033FATAL]: H4ЙД3НЫ 0ШuБku B ПСИ-ПРОФuЛ3</span><br>Пoпытk@ в0ccт@н0вЛeнuя...";
+          }, 1500);
+          setTimeout(() => {
+            document.getElementById('intro').style.display = 'none';
+            document.getElementById('nextStep').style.display = 'block';
+            setTimeout(() => {
+              document.getElementById('hiddenNote').style.display = 'block';
+            }, 3000);
           }, 3000);
         } else {
           alert('Н3в3pHЫЙ kЛЮ4. П0ПЫтk@ cн0в@.');
@@ -87,10 +113,10 @@
     }
 
     function selectMonster(name) {
-      document.getElementById('monsterSelected').innerHTML = `BЫ выбpaЛ: <strong>${name}</strong><br><span style="color:#ff0066">uHuцu@Лuз@цuя м3нт@Льн0г0 пpoфuЛя...</span><br><br><span style="color:#00ffff">П3pexoд в 3т@п 2...</span>`;
-      setTimeout(() => {
-        window.location.href = 'https://example.com/forum-entry'; // Замени на нужный URL
-      }, 3000);
+      document.getElementById('monsterSelected').innerHTML =
+        `BЫ выбpaЛ: <strong>${name}</strong><br><span style="color:#ff0066">uHuцu@Лuз@цuя м3нт@Льн0г0 пpoфuЛя...</span><br><br><span style="color:#00ffff">П3pexoд в 3т@п 2...</span>`;
+      document.getElementById('monsterVideo').src = "https://www.youtube.com/embed/z9Ul9ccDOqE?autoplay=1&mute=1";
+      document.getElementById('monsterVideo').style.display = 'block';
     }
   </script>
 </body>
