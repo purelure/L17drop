@@ -9,7 +9,6 @@
       color: #00ff99;
       font-family: monospace;
       padding: 20px;
-      overflow: hidden;
     }
     .console-box {
       border: 1px solid #00ff99;
@@ -59,24 +58,32 @@
         background: rgba(255, 255, 255, 0.05);
         transform: translate(0, 0);
       }
-      20% {
-        background: rgba(255, 255, 255, 0.05);
+      10% {
+        background: rgba(255, 255, 255, 0.2);
         transform: translate(3px, 3px);
+      }
+      20% {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translate(-5px, -5px);
+      }
+      30% {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translate(2px, -4px);
       }
       40% {
         background: rgba(255, 255, 255, 0.05);
-        transform: translate(-3px, -3px);
+        transform: translate(-2px, 2px);
+      }
+      50% {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translate(4px, -1px);
       }
       60% {
-        background: rgba(255, 255, 255, 0.1);
-        transform: translate(5px, -5px);
-      }
-      80% {
         background: rgba(255, 255, 255, 0.05);
         transform: translate(0, 0);
       }
       100% {
-        background: rgba(255, 255, 255, 0.05);
+        background: rgba(255, 255, 255, 0.1);
         transform: translate(0, 0);
       }
     }
@@ -88,56 +95,9 @@
       width: 100%;
       height: 100%;
       background: rgba(255, 255, 255, 0.05);
-      animation: glitch 10s infinite; /* Увеличено время анимации */
+      animation: glitch 1s infinite;
       pointer-events: none;
       z-index: 999;
-      filter: contrast(1.2) brightness(0.8); /* Уменьшена яркость и контраст */
-    }
-
-    /* Дополнительные помехи */
-    .vhs-noise::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('https://www.transparenttextures.com/patterns/noise.png'); /* Текстура шума */
-      opacity: 0.1; /* Меньше интенсивности */
-      pointer-events: none;
-      z-index: 1000;
-      animation: staticNoise 1s infinite; /* Увеличено время анимации */
-    }
-
-    /* Анимация случайных помех */
-    @keyframes staticNoise {
-      0% {
-        transform: translate(0, 0);
-      }
-      50% {
-        transform: translate(3px, 3px);
-      }
-      100% {
-        transform: translate(-3px, -3px);
-      }
-    }
-
-    /* Эффект искажения изображения */
-    .vhs-noise img {
-      filter: invert(1) contrast(2) blur(1px); /* Меньше размытия */
-      animation: imgDistortion 3s infinite; /* Увеличено время анимации */
-    }
-
-    @keyframes imgDistortion {
-      0% {
-        transform: scale(1) rotate(0deg);
-      }
-      50% {
-        transform: scale(1.02) rotate(1deg);
-      }
-      100% {
-        transform: scale(1) rotate(0deg);
-      }
     }
   </style>
 </head>
@@ -157,13 +117,13 @@
       <br>
       <span style="color: #aaa">/l09/p5yCh3</span> — 3@гpyзк@...
       <br><br>
-      m4k3 y0ur ch0ic3:
+      Bы6epu м0нcтp-пp0т0тuп:
       <br>
       <button class="option-button" onclick="selectMonster('Ph4nt0m-17')">Ph4nt0m-17</button>
       <button class="option-button" onclick="selectMonster('Z3rk4L0')">Z3rk4L0</button>
       <button class="option-button" onclick="selectMonster('Sh3pT00n')">Sh3pT00n</button>
       <br>
-      <span class="hidden-message" id="hiddenNote">[C1CT3M@]: Eсли ты 3т0 видuшb — ты yж3 внyтpu. Б3гИ, п0к@ есТb в0зм0жн0сТь, 3t0 н3 шу7к@.</span>
+      <span class="hidden-message" id="hiddenNote">[C1CT3M@]: 3t0 н3 uгpa. Eсли ты 3т0 видuшb — ты yж3 внyтpu. Б3гИ, п0к@ есТb в0зм0жн0сТь, 3t0 н3 шу7к@.</span>
       <div id="monsterSelected" style="margin-top:15px;"></div>
       <iframe id="monsterVideo" width="100%" height="315" src="" frameborder="0" style="display:none; margin-top:15px;"></iframe>
     </div>
@@ -188,7 +148,7 @@
           successSound.volume = 0.5;
           successSound.play().catch(e => console.warn('Ошибка воспроизведения звука доступа:', e));
           
-          document.getElementById('intro').innerHTML = "З@гpyзк@ пp0фu7я...";
+          document.getElementById('intro').innerHTML = "З@гpyзк@ пpoфuЛя...";
           setTimeout(() => {
             document.getElementById('intro').innerHTML = "<span style='color:red'>[0x0033FATAL]: H4ЙД3НЫ 0ШuБku B ПРОФuЛ3, OP3R@T10N D3F4UL7</span><br>Пoпытk@ в0ccт@н0вЛeнuя...";
           }, 1500);
@@ -200,14 +160,16 @@
             }, 3000);
           }, 3000);
         } else {
-          alert('Н3в3pHЫЙ kЛЮ4. п0пы7k@ cн0в@.');
+          alert('Н3в3pHЫЙ kЛЮ4. П0ПЫтk@ cн0в@.');
         }
       }
     }
 
     function selectMonster(name) {
       document.getElementById('monsterSelected').innerHTML =
-        `BЫ выбpaЛ: <strong>${name}</strong><br><span style="color:#ff0066">uHuцu@Лuз@...</span>`;
+        `BЫ выбpaЛ: <strong>${name}</strong><br><span style="color:#ff0066">uHuцu@Лuз@цuя м3нт@Льн0г0 пpoфuЛя...</span><br><br><span style="color:#00ffff">П3pexoд в 3т@п 2...</span>`;
+      document.getElementById('monsterVideo').src = "https://www.youtube.com/embed/z9Ul9ccDOqE?autoplay=1&mute=1";
+      document.getElementById('monsterVideo').style.display = 'block';
     }
   </script>
 </body>
