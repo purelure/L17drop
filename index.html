@@ -1,80 +1,53 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Лига 17 - Версия 0.9.7b</title>
+  <!-- мета и стили -->
+  <!-- ... остальной код без изменений ... -->
+
   <style>
-    body {
-      background-color: #121212;
-      color: #00FF00;
-      font-family: monospace;
-      margin: 0;
-      padding: 0;
+    /* ... предыдущие стили ... */
+
+    body::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(
+        0deg, rgba(0, 255, 255, 0.03) 1px, transparent 20px
+      ), repeating-linear-gradient(
+        90deg, rgba(0, 255, 255, 0.03) 1px, transparent 20px
+      );
+      top: -50%;
+      left: -50%;
+      z-index: -1;
+      animation: gridmove 60s linear infinite;
     }
+
     .container {
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background: #1b1b1b;
+      position: relative;
+      /* остальное без изменений */
     }
-    .terminal {
-      background: #000;
-      border: 2px solid #00FF00;
-      padding: 20px;
-      width: 60%;
-    }
-    input {
-      background: transparent;
-      border: none;
-      color: #00FF00;
-      width: 100%;
-      font-size: 1.5rem;
-      margin-top: 10px;
-      outline: none;
-    }
-    #response {
-      margin-top: 20px;
-      font-size: 1.2rem;
-      word-wrap: break-word;
+
+    @keyframes gridmove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50%, 50%); }
     }
   </style>
 </head>
 <body>
-
+  <!-- структура страницы -->
   <div class="container">
-    <div class="terminal">
-      <h1>Лига 17 - Версия 0.9.7b</h1>
-      <p>Введите код доступа: <span id="status">_______</span></p>
-      <input type="text" id="inputField" placeholder="Ввод кода..." autofocus>
-      <div id="response"></div>
-    </div>
+    <h1 class="glitch">Секретная утечка #L17</h1>
+    <p>Текст расследования...</p>
+    <p>Начни с <span class="highlight">ID</span>: <span class="id" id="decodedID">Загрузка...</span></p>
   </div>
 
   <script>
-    const inputField = document.getElementById("inputField");
-    const responseDiv = document.getElementById("response");
-    const statusSpan = document.getElementById("status");
-    
-    const correctCode = "Darian"; // Новый код для доступа
-
-    inputField.addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
-        const userInput = inputField.value.trim();
-        if (userInput === correctCode) {
-          responseDiv.innerHTML = "<p>Код верный. Добро пожаловать, Испытуемый-37.</p>";
-          setTimeout(() => {
-            responseDiv.innerHTML += "<p>Выберите модель поведения: [Агрессия] [Подчинение] [Скрытность]</p>";
-          }, 2000);
-        } else {
-          responseDiv.innerHTML = "<p>Ошибка доступа. Повторите попытку.</p>";
-        }
-      }
+    document.addEventListener('DOMContentLoaded', function() {
+      var base64ID = "VXNlcjE3OkF1cmVsaWFu";
+      var decoded = atob(base64ID);
+      document.getElementById("decodedID").textContent = decoded;
     });
   </script>
-
 </body>
 </html>
