@@ -52,7 +52,7 @@
       50% { opacity: 0; }
     }
     .glitch-effect {
-      animation: glitch-text 0.5s infinite;
+      animation: glitch-text 0.3s infinite;
     }
     @keyframes glitch-text {
       0% { transform: translate(0, 0); }
@@ -100,10 +100,10 @@
   </div>
 
   <!-- Тревожный фоновый звук -->
-  <audio id="backgroundSound" src="https://cdn.pixabay.com/download/audio/2022/03/28/audio_3c8080e3bb.mp3?filename=tense-dark-ambient-132119.mp3" preload="auto" loop></audio>
+  <audio id="backgroundSound" src="https://www.free-stock-music.com/music/sound-effects-library-spooky-ambience.mp3" preload="auto" loop></audio>
 
   <!-- Звук искажения -->
-  <audio id="glitchSound" src="https://cdn.pixabay.com/download/audio/2022/10/23/audio_3a7ccf7e3e.mp3?filename=glitch-ambient-112472.mp3" preload="auto"></audio>
+  <audio id="glitchSound" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_100738.mp3?filename=glitch-sound-effect-100738.mp3" preload="auto"></audio>
 
   <script>
     function startSession() {
@@ -117,7 +117,7 @@
 
     function checkKey(event) {
       if (event.key === 'Enter') {
-        const value = document.getElementById('accessKey').value.trim().toLowerCase();
+        const value = document.getElementById('accessKey').value;
         if (value === '01042014') {
           document.getElementById('intro').innerHTML = "З@гpyзк@ пpoфuЛя...";
           setTimeout(() => {
