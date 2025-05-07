@@ -41,7 +41,7 @@
       text-decoration: underline;
     }
     .text-button:hover {
-      color: #ff5555;
+      color: #ff0000;
     }
     .blinking-cursor::after {
       content: ' █';
@@ -59,26 +59,6 @@
       100% { transform: translate(0, 0); }
     }
     .glitch-effect {
-      color: red;
-      font-weight: bold;
-      animation: glitch-text 0.3s infinite;
-    }
-
-    .fade-out {
-      opacity: 0;
-      transition: opacity 1.5s ease-out;
-    }
-
-    .fade-in {
-      opacity: 0;
-      animation: fadeIn 2s forwards;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
-    .random-glitch {
       animation: glitch-text 0.3s infinite;
     }
   </style>
@@ -124,29 +104,14 @@
           successSound.play().catch(e => console.warn('Ошибка воспроизведения звука доступа:', e));
           document.getElementById('intro').innerHTML = "З@гpyзк@ пpoфuЛя...";
           setTimeout(() => {
-            document.getElementById('intro').innerHTML = "<span style='color:red'>[0x0033FATAL]: H4ЙД3НЫ 0ШuБku B ПРОФuЛ3, OP3R@T10N D3F4UL7, C0D3: Чц кън рцины. Я. XVI</span><br>Пoпытk@ в0ccт@н0вЛeнuя...";
+            document.getElementById('intro').innerHTML = "<span style='color:red'>[0x0033FATAL]: Н@рушeнuя cтpyктypы. В0звpaщeнuю нeт. C0D3: XIII</span><br>Пoпытk@ п0дмeнu...";
           }, 1500);
           setTimeout(() => {
-            document.getElementById('intro').classList.add('fade-out');
+            document.getElementById('intro').style.display = 'none';
+            document.getElementById('nextStep').style.display = 'block';
             setTimeout(() => {
-              document.getElementById('intro').style.display = 'none';
-              const next = document.getElementById('nextStep');
-              next.style.display = 'block';
-              next.classList.add('fade-in');
-
-              setTimeout(() => {
-                document.getElementById('hiddenNote').style.display = 'block';
-              }, 3000);
-
-              // Случайный глитч кнопок
-              setInterval(() => {
-                const buttons = document.querySelectorAll('.text-button');
-                const random = buttons[Math.floor(Math.random() * buttons.length)];
-                random.classList.add('random-glitch');
-                setTimeout(() => random.classList.remove('random-glitch'), 500);
-              }, 4000);
-
-            }, 1500);
+              document.getElementById('hiddenNote').style.display = 'block';
+            }, 3000);
           }, 3000);
         } else {
           alert('Н3в3pHЫЙ kЛЮ4. П0ПЫтk@ cн0в@.');
@@ -158,18 +123,17 @@
       let monsterText = "";
       switch(name) {
         case 'NightJack':
-          monsterText = "1 b3li3v3: NightJack<br><span style='color:red'>I HOPE</span><br><br><span style='color:red'>YOU...</span>";
+          monsterText = "<div class='glitch-effect'>NightJack is inside your signal.<br><br>He knows.<br>YOU KNOW.</div>";
           break;
         case 'Oo_oO':
-          monsterText = "1n: Oo_oO<br><span style='color:red'>YOU FEEL</span><br><br><span style='color:red'>NEED...</span>";
+          monsterText = "<div class='glitch-effect'>Oo_oO watches the gaps.<br><br>Silence is a lie.<br>RUN.</div>";
           break;
         case 'Trogwar':
-          monsterText = "y0u: Trogwar<br><span style='color:red'>GOOD</span><br><br><span style='color:red'>TO GO BACK...</span>";
+          monsterText = "<div class='glitch-effect'>Trogwar already touched the system.<br><br>IT'S TOO LATE.<br>LOOK BEHIND YOU.</div>";
           break;
         default:
           break;
       }
-
       document.getElementById('monsterSelected').innerHTML = monsterText;
     }
   </script>
