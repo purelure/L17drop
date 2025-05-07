@@ -99,13 +99,18 @@
     </div>
   </div>
 
-  <!-- Звук -->
+  <!-- Звуки -->
   <audio id="glitchSound" src="https://freesound.org/data/previews/331/331912_3248244-lq.mp3" preload="auto"></audio>
+  <audio id="bgAudio" src="https://freesound.org/data/previews/250/250629_4486188-lq.mp3" preload="auto" loop></audio>
 
   <script>
     function startSession() {
       document.getElementById('startSession').style.display = 'none';
       document.getElementById('intro').style.display = 'block';
+
+      const bgAudio = document.getElementById('bgAudio');
+      bgAudio.volume = 0.15;
+      bgAudio.play().catch(e => console.warn("Фоновый звук не воспроизвёлся:", e));
     }
 
     function checkKey(event) {
@@ -132,7 +137,7 @@
     function selectMonster(name) {
       const glitchSound = document.getElementById('glitchSound');
       glitchSound.currentTime = 0;
-      glitchSound.volume = 0.5;
+      glitchSound.volume = 0.3;
       glitchSound.play().catch(e => console.warn("Ошибка воспроизведения звука:", e));
 
       let monsterText = "";
