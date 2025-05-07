@@ -2,96 +2,79 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Лига 17 — Версия 0.9.7b</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лига 17 - Версия 0.9.7b</title>
   <style>
     body {
-      background-color: #0d0d0d;
-      color: #00ff99;
+      background-color: #121212;
+      color: #00FF00;
       font-family: monospace;
-      padding: 20px;
+      margin: 0;
+      padding: 0;
     }
-    .console-box {
-      border: 1px solid #00ff99;
-      padding: 20px;
-      background-color: #000;
-      max-width: 600px;
-      margin: auto;
-    }
-    .input-field {
-      background: none;
-      border: none;
-      border-bottom: 1px solid #00ff99;
-      color: #00ff99;
+    .container {
       width: 100%;
-      font-size: 16px;
-      margin-top: 10px;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: #1b1b1b;
     }
-    .hidden-message {
-      display: none;
-      color: #ff0066;
-      margin-top: 10px;
+    .terminal {
+      background: #000;
+      border: 2px solid #00FF00;
+      padding: 20px;
+      width: 60%;
     }
-    .option-button {
-      background-color: #111;
-      border: 1px solid #00ff99;
-      color: #00ff99;
-      padding: 5px 10px;
+    input {
+      background: transparent;
+      border: none;
+      color: #00FF00;
+      width: 100%;
+      font-size: 1.5rem;
       margin-top: 10px;
-      cursor: pointer;
-      font-family: monospace;
+      outline: none;
     }
-    .option-button:hover {
-      background-color: #00ff99;
-      color: #000;
+    #response {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      word-wrap: break-word;
     }
   </style>
 </head>
 <body>
-  <div class="console-box">
-    <div id="intro">
-      Добро пожаловать в систему ЛИГА-17. Версия: 0.9.7b<br>
-      Введите ключ доступа:
-      <input type="text" class="input-field" id="accessKey" onkeydown="checkKey(event)">
-    </div>
-    <div id="nextStep" style="display:none">
-      Доступ разрешён. Пользователь: test_user_013<br>
-      Последняя активность: 17.03.2017<br>
-      <br>
-      <span style="color: #aaa">/log/psyche</span> — Загрузка...
-      <br><br>
-      Выберите прототип монстра:
-      <br>
-      <button class="option-button" onclick="selectMonster('Фантом-17')">Фантом-17</button>
-      <button class="option-button" onclick="selectMonster('Зеркало')">Зеркало</button>
-      <button class="option-button" onclick="selectMonster('Шептун')">Шептун</button>
-      <br>
-      <span class="hidden-message" id="hiddenNote">[СИСТЕМА]: ЭТО НЕ ИГРА. ЕСЛИ ТЫ ЭТО ВИДИШЬ — ТЫ УЖЕ ВНУТРИ.</span>
-      <div id="monsterSelected" style="margin-top:15px;"></div>
+
+  <div class="container">
+    <div class="terminal">
+      <h1>Лига 17 - Версия 0.9.7b</h1>
+      <p>Введите код доступа: <span id="status">_______</span></p>
+      <input type="text" id="inputField" placeholder="Ввод кода..." autofocus>
+      <div id="response"></div>
     </div>
   </div>
 
   <script>
-    function checkKey(event) {
-      if (event.key === 'Enter') {
-        const value = document.getElementById('accessKey').value;
-        if (value.toLowerCase() === 'MishaGold') {
-          document.getElementById('intro').style.display = 'none';
-          document.getElementById('nextStep').style.display = 'block';
+    const inputField = document.getElementById("inputField");
+    const responseDiv = document.getElementById("response");
+    const statusSpan = document.getElementById("status");
+    
+    const correctCode = "MishaGold"; // Новый код для доступа
+
+    inputField.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        const userInput = inputField.value.trim();
+        if (userInput === correctCode) {
+          responseDiv.innerHTML = "<p>Код верный. Добро пожаловать, Испытуемый-37.</p>";
           setTimeout(() => {
-            document.getElementById('hiddenNote').style.display = 'block';
-          }, 3000);
+            responseDiv.innerHTML += "<p>Выберите модель поведения: [Агрессия] [Подчинение] [Скрытность]</p>";
+          }, 2000);
         } else {
-          alert('Неверный ключ доступа. Попробуйте снова.');
+          responseDiv.innerHTML = "<p>Ошибка доступа. Повторите попытку.</p>";
         }
       }
-    }
-
-    function selectMonster(name) {
-      document.getElementById('monsterSelected').innerHTML = `Вы выбрали: <strong>${name}</strong><br><span style="color:#ff0066">Инициализация ментального профиля...</span><br><br><span style="color:#00ffff">Переход в следующую фазу...</span>`;
-      setTimeout(() => {
-        window.location.href = 'https://example.com/forum-entry'; // Здесь можно заменить на настоящий URL следующего этапа
-      }, 3000);
-    }
+    });
   </script>
+
 </body>
 </html>
