@@ -9,6 +9,7 @@
       color: #00ff99;
       font-family: monospace;
       padding: 20px;
+      overflow: hidden;
     }
     .console-box {
       border: 1px solid #00ff99;
@@ -90,6 +91,21 @@
       animation: glitch 3s infinite; /* Увеличил время анимации до 3 секунд */
       pointer-events: none;
       z-index: 999;
+      filter: contrast(1.2) brightness(0.9) sepia(0.2); /* Эффект фильтра для VHS */
+    }
+
+    /* Помехи VHS: Добавление шумового эффекта */
+    .vhs-noise::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/noise.png'); /* Шумовая текстура */
+      opacity: 0.2;
+      pointer-events: none;
+      z-index: 1000;
     }
   </style>
 </head>
