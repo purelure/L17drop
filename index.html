@@ -99,18 +99,21 @@
     </div>
   </div>
 
-  <!-- Звуки -->
+  <!-- Звук фона (тревожный) -->
+  <audio id="backgroundSound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto" loop></audio>
+
+  <!-- Звук искажения -->
   <audio id="glitchSound" src="https://freesound.org/data/previews/331/331912_3248244-lq.mp3" preload="auto"></audio>
-  <audio id="bgAudio" src="https://freesound.org/data/previews/250/250629_4486188-lq.mp3" preload="auto" loop></audio>
 
   <script>
     function startSession() {
+      // Включаем фоновый звук
+      const backgroundSound = document.getElementById('backgroundSound');
+      backgroundSound.volume = 0.6; // Сделать на 40% тише (60% от оригинальной громкости)
+      backgroundSound.play().catch(e => console.warn('Ошибка воспроизведения фонового звука:', e));
+
       document.getElementById('startSession').style.display = 'none';
       document.getElementById('intro').style.display = 'block';
-
-      const bgAudio = document.getElementById('bgAudio');
-      bgAudio.volume = 0.15;
-      bgAudio.play().catch(e => console.warn("Фоновый звук не воспроизвёлся:", e));
     }
 
     function checkKey(event) {
@@ -137,16 +140,8 @@
     function selectMonster(name) {
       const glitchSound = document.getElementById('glitchSound');
       glitchSound.currentTime = 0;
-      glitchSound.volume = 0.3;
+      glitchSound.volume = 0.5;
       glitchSound.play().catch(e => console.warn("Ошибка воспроизведения звука:", e));
-
-      // Прерывание фонового звука с искажением
-      const bgAudio = document.getElementById('bgAudio');
-      bgAudio.pause();  // Останавливаем фоновый звук
-      setTimeout(() => {
-        bgAudio.currentTime = 0;
-        bgAudio.play().catch(e => console.warn("Ошибка воспроизведения фонового звука:", e));
-      }, 500);  // Воспроизведение через полсекунды с искажением
 
       let monsterText = "";
       switch(name) {
