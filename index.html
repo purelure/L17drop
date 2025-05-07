@@ -52,7 +52,7 @@
       50% { opacity: 0; }
     }
     .glitch-effect {
-      animation: glitch-text 0.3s infinite;
+      animation: glitch-text 0.5s infinite;
     }
     @keyframes glitch-text {
       0% { transform: translate(0, 0); }
@@ -100,16 +100,15 @@
   </div>
 
   <!-- Тревожный фоновый звук -->
-  <audio id="backgroundSound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto" loop></audio>
+  <audio id="backgroundSound" src="https://cdn.pixabay.com/download/audio/2022/03/28/audio_3c8080e3bb.mp3?filename=tense-dark-ambient-132119.mp3" preload="auto" loop></audio>
 
   <!-- Звук искажения -->
-  <audio id="glitchSound" src="https://freesound.org/data/previews/331/331912_3248244-lq.mp3" preload="auto"></audio>
+  <audio id="glitchSound" src="https://cdn.pixabay.com/download/audio/2022/10/23/audio_3a7ccf7e3e.mp3?filename=glitch-ambient-112472.mp3" preload="auto"></audio>
 
   <script>
     function startSession() {
-      // Включаем фоновый звук
       const backgroundSound = document.getElementById('backgroundSound');
-      backgroundSound.volume = 0.6; // Сделать на 40% тише (60% от оригинальной громкости)
+      backgroundSound.volume = 0.6;
       backgroundSound.play().catch(e => console.warn('Ошибка воспроизведения фонового звука:', e));
 
       document.getElementById('startSession').style.display = 'none';
@@ -118,7 +117,7 @@
 
     function checkKey(event) {
       if (event.key === 'Enter') {
-        const value = document.getElementById('accessKey').value;
+        const value = document.getElementById('accessKey').value.trim().toLowerCase();
         if (value === '01042014') {
           document.getElementById('intro').innerHTML = "З@гpyзк@ пpoфuЛя...";
           setTimeout(() => {
