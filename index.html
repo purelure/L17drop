@@ -6,12 +6,12 @@
   <style>
     body {
       background-color: #0d0d0d;
-      color: #00ff99;
+      color: red;
       font-family: monospace;
       padding: 20px;
     }
     .console-box {
-      border: 1px solid #00ff99;
+      border: 1px solid red;
       padding: 20px;
       background-color: #000;
       max-width: 600px;
@@ -20,8 +20,8 @@
     .input-field {
       background: none;
       border: none;
-      border-bottom: 1px solid #00ff99;
-      color: #00ff99;
+      border-bottom: 1px solid red;
+      color: red;
       width: 100%;
       font-size: 16px;
       margin-top: 10px;
@@ -34,14 +34,14 @@
     .text-button {
       background: none;
       border: none;
-      color: #00ff99;
+      color: red;
       font-size: 18px;
       font-family: monospace;
       cursor: pointer;
       text-decoration: underline;
     }
     .text-button:hover {
-      color: #ff0066;
+      color: red;
     }
     .blinking-cursor::after {
       content: ' █';
@@ -51,7 +51,6 @@
       50% { opacity: 0; }
     }
 
-    /* Эффект дрожащего текста */
     @keyframes glitch-text {
       0% { transform: translate(0, 0); }
       20% { transform: translate(-1px, 1px); }
@@ -79,7 +78,7 @@
     <div id="nextStep" style="display:none">
       Д0cтyп p@зpeшён. П0Льз0в@тeЛь: t35t_uz3r_013<br>
       П0cЛ3дняя @kтuвн0cть: 01.04.2014<br><br>
-      <span style="color: #aaa">/l09/p5yCh3</span> — 3@гpyзк@...<br><br>
+      <span style="color: red">/l09/p5yCh3</span> — 3@гpyзк@...<br><br>
       <span style="color:red;">m4k3 y0ur ch01c3:</span><br>
       <button class="text-button" onclick="selectMonster('Ph4nt0m-17')">Ph4nt0m-17</button>
       <button class="text-button" onclick="selectMonster('Z3rk4L0')">Z3rk4L0</button>
@@ -128,19 +127,18 @@
       let monsterText = "";
       switch(name) {
         case 'Ph4nt0m-17':
-          monsterText = "1 f33l: Ph4nt0m-17<br><span style='color:#ff0066'>I HOPE</span><br><br><span style='color:#00ffff'>NEED...</span>";
+          monsterText = "1 f33l: Ph4nt0m-17<br><span style='color:red'>I HOPE</span><br><br><span style='color:red'>NEED...</span>";
           break;
         case 'Z3rk4L0':
-          monsterText = "y0ur: Z3rk4L0<br><span style='color:#ff0066'>YOU FEEL</span><br><br><span style='color:#00ffff'>YOU...</span>";
+          monsterText = "y0ur: Z3rk4L0<br><span style='color:red'>YOU FEEL</span><br><br><span style='color:red'>YOU...</span>";
           break;
         case 't1sh1n@':
-          monsterText = "f34r: t1sh1n@<br><span style='color:#ff0066'>GOOD</span><br><br><span style='color:#00ffff'>TO GO BACK...</span>";
+          monsterText = "f34r: t1sh1n@<br><span style='color:red'>GOOD</span><br><br><span style='color:red'>TO GO BACK...</span>";
           break;
         default:
           break;
       }
 
-      // Показать текст выбранного монстра
       document.getElementById('monsterSelected').innerHTML = monsterText;
     }
   </script>
