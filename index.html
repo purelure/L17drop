@@ -100,19 +100,33 @@
   </div>
 
   <!-- Фоновая музыка -->
-  <audio id="backgroundSound" src="https://www.free-stock-music.com/music/sound-effects-library-spooky-ambience.mp3" preload="auto" loop></audio>
+  <audio id="backgroundSound" preload="auto" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c92d1b7dc.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+  </audio>
 
   <!-- Звук искажения -->
-  <audio id="glitchSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1b1f3c5f2c.mp3?filename=glitch-sound-effect-1b1f3c5f2c.mp3" preload="auto"></audio>
+  <audio id="glitchSound" preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2021/09/08/audio_b85f1cb8d1.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+  </audio>
 
   <script>
     function startSession() {
       const backgroundSound = document.getElementById('backgroundSound');
-      backgroundSound.volume = 0.6;
-      backgroundSound.play().catch(e => console.warn('Ошибка воспроизведения фонового звука:', e));
 
       document.getElementById('startSession').style.display = 'none';
       document.getElementById('intro').style.display = 'block';
+
+      // Запускаем фоновый звук по клику
+      backgroundSound.load(); // важно
+      backgroundSound.volume = 0.5;
+
+      backgroundSound.play().then(() => {
+        console.log("Фоновый звук воспроизводится");
+      }).catch(err => {
+        console.warn("Ошибка запуска фонового звука:", err);
+      });
     }
 
     function checkKey(event) {
@@ -139,7 +153,7 @@
     function selectMonster(name) {
       const glitchSound = document.getElementById('glitchSound');
       glitchSound.currentTime = 0;
-      glitchSound.volume = 0.5;
+      glitchSound.volume = 0.7;
       glitchSound.play().catch(e => console.warn("Ошибка воспроизведения звука:", e));
 
       let monsterText = "";
