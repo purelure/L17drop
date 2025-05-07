@@ -194,3 +194,21 @@
           }, 1500);
           setTimeout(() => {
             document.getElementById('intro').style.display = 'none';
+            document.getElementById('nextStep').style.display = 'block';
+            setTimeout(() => {
+              document.getElementById('hiddenNote').style.display = 'block';
+            }, 3000);
+          }, 3000);
+        } else {
+          alert('Н3в3pHЫЙ kЛЮ4. П0ПЫтk@ cн0в@.');
+        }
+      }
+    }
+
+    function selectMonster(name) {
+      document.getElementById('monsterSelected').innerHTML =
+        `BЫ выбpaЛ: <strong>${name}</strong><br><span style="color:#ff0066">uHuцu@Лuз@...</span>`;
+    }
+  </script>
+</body>
+</html>
