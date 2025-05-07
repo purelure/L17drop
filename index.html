@@ -134,6 +134,7 @@
   <!-- Аудио -->
   <audio id="keySound" src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_3a4f2f4be8.mp3?filename=white-noise-17466.mp3" preload="auto"></audio>
   <audio id="successSound" src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_3a4f2f4be8.mp3?filename=white-noise-17466.mp3" preload="auto"></audio>
+  <audio id="glitchSound" src="https://cdn.pixabay.com/download/audio/2021/11/10/audio_14e227b7ff.mp3?filename=glitch-1-113571.mp3" preload="auto"></audio>
 
   <script>
     let sessionStarted = false;
@@ -176,6 +177,10 @@
     }
 
     function selectMonster(name) {
+      const glitchSound = document.getElementById('glitchSound');
+      glitchSound.currentTime = 0;
+      glitchSound.play().catch(e => console.warn('Ошибка звука искажения:', e));
+
       let monsterText = "";
       switch(name) {
         case 'NightJack':
