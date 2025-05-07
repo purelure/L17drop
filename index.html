@@ -58,29 +58,21 @@
         background: rgba(255, 255, 255, 0.05);
         transform: translate(0, 0);
       }
-      10% {
+      20% {
         background: rgba(255, 255, 255, 0.2);
         transform: translate(3px, 3px);
       }
-      20% {
+      40% {
         background: rgba(255, 255, 255, 0.1);
         transform: translate(-5px, -5px);
       }
-      30% {
+      60% {
         background: rgba(255, 255, 255, 0.15);
         transform: translate(2px, -4px);
       }
-      40% {
+      80% {
         background: rgba(255, 255, 255, 0.05);
         transform: translate(-2px, 2px);
-      }
-      50% {
-        background: rgba(255, 255, 255, 0.1);
-        transform: translate(4px, -1px);
-      }
-      60% {
-        background: rgba(255, 255, 255, 0.05);
-        transform: translate(0, 0);
       }
       100% {
         background: rgba(255, 255, 255, 0.1);
@@ -95,7 +87,7 @@
       width: 100%;
       height: 100%;
       background: rgba(255, 255, 255, 0.05);
-      animation: glitch 1s infinite;
+      animation: glitch 3s infinite; /* Увеличил время анимации до 3 секунд */
       pointer-events: none;
       z-index: 999;
     }
