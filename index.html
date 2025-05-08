@@ -107,7 +107,10 @@
 
   <script>
     // Никнеймы и сообщения
-    const nicknames = ["FlOx", "puldogs", "SAriN", "Sheran", "AkSeon", "DodgeR", "Gogle", "Vondalei"];
+    const nicknames = [
+      "Fa_N_Ta", "x_StReLoK_x", "Generalisimys", "Шершень", "ALex Major Luck", 
+      "SlamperPro", "poky profy", "Tendo", "Steepsy", "Cold Siemens"
+    ];
     const messages = [
       "u cAn'T esC4pE",
       "th3y s33 y0u",
@@ -115,13 +118,16 @@
       "th3 s3rv3r n3v3r f0rg37s",
       "y0u're 1ns1d3 n0w",
       "whY d1D y0u c0nn3cT?",
-      "th3 3y3s 4r3 0p3n"
+      "th3 3y3s 4r3 0p3n",
+      "Connection established: 79.174.66.98",
+      "Protocol error detected: RESTARTING...",
+      "Access to core files granted, beware..."
     ];
 
     function startSession() {
       // Включаем фоновый звук
       const backgroundSound = document.getElementById('backgroundSound');
-      backgroundSound.volume = 0.1; // Сделать на 10% тише (10% от оригинальной громкости)
+      backgroundSound.volume = 0.1; // Сделать на 90% тише (10% от оригинальной громкости)
       backgroundSound.play().catch(e => console.warn('Ошибка воспроизведения фонового звука:', e));
 
       document.getElementById('startSession').style.display = 'none';
@@ -152,7 +158,7 @@
     function selectMonster(name) {
       const glitchSound = document.getElementById('glitchSound');
       glitchSound.currentTime = 0;
-      glitchSound.volume = 0.1; // Сделать на 10% тише (10% от оригинальной громкости)
+      glitchSound.volume = 0.1; // Сделать на 90% тише (10% от оригинальной громкости)
       glitchSound.play().catch(e => console.warn("Ошибка воспроизведения звука:", e));
 
       let monsterText = "";
@@ -175,9 +181,6 @@
       const message = `[${randomNickname}]: ${randomMessage}`;
       const hiddenMessageElement = document.createElement("div");
       hiddenMessageElement.textContent = message;
-
-      // Показать элемент с сообщением
-      document.getElementById('hiddenNote').style.display = 'block'; 
       document.getElementById('hiddenNote').appendChild(hiddenMessageElement);
     }
   </script>
