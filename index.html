@@ -10,9 +10,7 @@
       font-family: monospace;
       padding: 20px;
       overflow: hidden;
-      transition: transform 0.05s ease;
     }
-
     .console-box {
       border: 1px solid red;
       padding: 20px;
@@ -20,7 +18,6 @@
       max-width: 600px;
       margin: auto;
     }
-
     .input-field {
       background: none;
       border: none;
@@ -30,13 +27,11 @@
       font-size: 16px;
       margin-top: 10px;
     }
-
     .hidden-message {
       display: none;
       margin-top: 10px;
       color: red;
     }
-
     .text-button {
       background: none;
       border: none;
@@ -46,24 +41,19 @@
       cursor: pointer;
       text-decoration: underline;
     }
-
     .text-button:hover {
       color: #ff0000;
     }
-
     .blinking-cursor::after {
       content: ' █';
       animation: blink 1s step-start infinite;
     }
-
     @keyframes blink {
       50% { opacity: 0; }
     }
-
     .glitch-effect {
       animation: glitch-text 0.3s infinite;
     }
-
     @keyframes glitch-text {
       0% { transform: translate(0, 0); }
       20% { transform: translate(-1px, 1px); }
@@ -72,25 +62,20 @@
       80% { transform: translate(2px, -2px); }
       100% { transform: translate(0, 0); }
     }
-
-    .screen-glitch {
-      animation: screen-glitch 0.3s ease-in-out;
-    }
-
-    @keyframes screen-glitch {
-      0%, 100% { transform: none; }
-      20% { transform: scale(1.01) translate(-3px, 2px) rotate(-0.5deg); }
-      40% { transform: scale(0.99) translate(3px, -2px) rotate(0.5deg); }
-      60% { transform: scale(1.02) translate(-5px, 2px) rotate(-1deg); }
-      80% { transform: scale(1) translate(2px, -1px) rotate(0.3deg); }
-    }
-
     .centered {
       text-align: center;
     }
-
-    #startSession { display: block; }
-    #intro, #nextStep { display: none; }
+    .floating-text {
+      position: fixed;
+      color: red;
+      font-size: 14px;
+      animation: float 3s linear forwards;
+      pointer-events: none;
+    }
+    @keyframes float {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-150px); }
+    }
   </style>
 </head>
 <body>
@@ -119,29 +104,38 @@
     </div>
   </div>
 
-  <!-- Фоновый звук -->
+  <!-- Звук -->
   <audio id="backgroundSound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto" loop></audio>
-
-  <!-- Глитч -->
   <audio id="glitchSound" src="https://freesound.org/data/previews/331/331912_3248244-lq.mp3" preload="auto"></audio>
 
   <script>
+    const nicknames = ["FlOx", "puldogs", "SAriN", "Sheran", "AkSeon", "DodgeR", "Gogle", "Vondalei"];
+    const messages = [
+      "u cAn'T esC4pE",
+      "th3y s33 y0u",
+      "i7's 70o l4t3",
+      "th3 s3rv3r n3v3r f0rg37s",
+      "y0u're 1ns1d3 n0w",
+      "whY d1D y0u c0nn3cT?",
+      "th3 3y3s 4r3 0p3n"
+    ];
+
+    function showFloatingText() {
+      const div = document.createElement("div");
+      div.className = "floating-text";
+      const nick = nicknames[Math.floor(Math.random() * nicknames.length)];
+      const msg = messages[Math.floor(Math.random() * messages.length)];
+      div.textContent = `[${nick}]: ${msg}`;
+      div.style.left = Math.random() * window.innerWidth + "px";
+      div.style.top = Math.random() * window.innerHeight + "px";
+      document.body.appendChild(div);
+      setTimeout(() => document.body.removeChild(div), 3000);
+    }
+
     function startSession() {
       const backgroundSound = document.getElementById('backgroundSound');
-      backgroundSound.volume = 0;
+      backgroundSound.volume = 0.3; // 70% тише
       backgroundSound.play().catch(e => console.warn('Ошибка воспроизведения фонового звука:', e));
-
-      // Фейд-ин до 0.3
-      let vol = 0;
-      const fadeIn = setInterval(() => {
-        vol += 0.03;
-        if (vol >= 0.3) {
-          backgroundSound.volume = 0.3;
-          clearInterval(fadeIn);
-        } else {
-          backgroundSound.volume = vol;
-        }
-      }, 200);
 
       document.getElementById('startSession').style.display = 'none';
       document.getElementById('intro').style.display = 'block';
@@ -171,12 +165,8 @@
     function selectMonster(name) {
       const glitchSound = document.getElementById('glitchSound');
       glitchSound.currentTime = 0;
-      glitchSound.volume = 0.25;
+      glitchSound.volume = 0.5;
       glitchSound.play().catch(e => console.warn("Ошибка воспроизведения звука:", e));
-
-      // Эффект глитча экрана
-      document.body.classList.add("screen-glitch");
-      setTimeout(() => document.body.classList.remove("screen-glitch"), 300);
 
       let monsterText = "";
       switch(name) {
@@ -191,6 +181,11 @@
           break;
       }
       document.getElementById('monsterSelected').innerHTML = monsterText;
+
+      // Показываем 3 всплывающих текста
+      for (let i = 0; i < 3; i++) {
+        setTimeout(showFloatingText, i * 500);
+      }
     }
   </script>
 </body>
