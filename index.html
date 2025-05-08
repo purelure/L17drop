@@ -121,7 +121,7 @@
     function startSession() {
       // Включаем фоновый звук
       const backgroundSound = document.getElementById('backgroundSound');
-      backgroundSound.volume = 0.3; // Сделать на 70% тише (30% от оригинальной громкости)
+      backgroundSound.volume = 0.1; // Сделать на 10% тише (10% от оригинальной громкости)
       backgroundSound.play().catch(e => console.warn('Ошибка воспроизведения фонового звука:', e));
 
       document.getElementById('startSession').style.display = 'none';
@@ -152,7 +152,7 @@
     function selectMonster(name) {
       const glitchSound = document.getElementById('glitchSound');
       glitchSound.currentTime = 0;
-      glitchSound.volume = 0.3; // Сделать на 70% тише (30% от оригинальной громкости)
+      glitchSound.volume = 0.1; // Сделать на 10% тише (10% от оригинальной громкости)
       glitchSound.play().catch(e => console.warn("Ошибка воспроизведения звука:", e));
 
       let monsterText = "";
@@ -175,6 +175,9 @@
       const message = `[${randomNickname}]: ${randomMessage}`;
       const hiddenMessageElement = document.createElement("div");
       hiddenMessageElement.textContent = message;
+
+      // Показать элемент с сообщением
+      document.getElementById('hiddenNote').style.display = 'block'; 
       document.getElementById('hiddenNote').appendChild(hiddenMessageElement);
     }
   </script>
