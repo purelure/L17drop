@@ -65,16 +65,11 @@
     .centered {
       text-align: center;
     }
-    .floating-text {
-      position: fixed;
-      color: red;
-      font-size: 14px;
-      animation: float 3s linear forwards;
-      pointer-events: none;
+    #startSession {
+      display: block;
     }
-    @keyframes float {
-      from { opacity: 1; transform: translateY(0); }
-      to { opacity: 0; transform: translateY(-150px); }
+    #intro, #nextStep {
+      display: none;
     }
   </style>
 </head>
@@ -91,7 +86,7 @@
       <input type="text" class="input-field" id="accessKey" onkeydown="checkKey(event)">
     </div>
 
-    <div id="nextStep">
+    <div id="nextStep" style="display: none;">
       Д0cтyп p@зp3ш3н. П0Льз0в@т3Ль: t35t_uz3r_013<br>
       П0cЛ3дн99 @kтuвн0c7ь: 01.04.2014<br><br>
       <span style="color: red">/l50/0P3R4T10N M3W7TW0</span> — 3@гpyзк@...<br><br>
@@ -104,37 +99,17 @@
     </div>
   </div>
 
-  <!-- Звук -->
+  <!-- Тревожный фоновый звук -->
   <audio id="backgroundSound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto" loop></audio>
+
+  <!-- Звук искажения -->
   <audio id="glitchSound" src="https://freesound.org/data/previews/331/331912_3248244-lq.mp3" preload="auto"></audio>
 
   <script>
-    const nicknames = ["FlOx", "puldogs", "SAriN", "Sheran", "AkSeon", "DodgeR", "Gogle", "Vondalei"];
-    const messages = [
-      "u cAn'T esC4pE",
-      "th3y s33 y0u",
-      "i7's 70o l4t3",
-      "th3 s3rv3r n3v3r f0rg37s",
-      "y0u're 1ns1d3 n0w",
-      "whY d1D y0u c0nn3cT?",
-      "th3 3y3s 4r3 0p3n"
-    ];
-
-    function showFloatingText() {
-      const div = document.createElement("div");
-      div.className = "floating-text";
-      const nick = nicknames[Math.floor(Math.random() * nicknames.length)];
-      const msg = messages[Math.floor(Math.random() * messages.length)];
-      div.textContent = `[${nick}]: ${msg}`;
-      div.style.left = Math.random() * window.innerWidth + "px";
-      div.style.top = Math.random() * window.innerHeight + "px";
-      document.body.appendChild(div);
-      setTimeout(() => document.body.removeChild(div), 3000);
-    }
-
     function startSession() {
+      // Включаем фоновый звук
       const backgroundSound = document.getElementById('backgroundSound');
-      backgroundSound.volume = 0.3; // 70% тише
+      backgroundSound.volume = 0.3; // Сделать на 70% тише (30% от оригинальной громкости)
       backgroundSound.play().catch(e => console.warn('Ошибка воспроизведения фонового звука:', e));
 
       document.getElementById('startSession').style.display = 'none';
@@ -165,7 +140,7 @@
     function selectMonster(name) {
       const glitchSound = document.getElementById('glitchSound');
       glitchSound.currentTime = 0;
-      glitchSound.volume = 0.5;
+      glitchSound.volume = 0.3; // Сделать на 70% тише (30% от оригинальной громкости)
       glitchSound.play().catch(e => console.warn("Ошибка воспроизведения звука:", e));
 
       let monsterText = "";
@@ -181,11 +156,6 @@
           break;
       }
       document.getElementById('monsterSelected').innerHTML = monsterText;
-
-      // Показываем 3 всплывающих текста
-      for (let i = 0; i < 3; i++) {
-        setTimeout(showFloatingText, i * 500);
-      }
     }
   </script>
 </body>
