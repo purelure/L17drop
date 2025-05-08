@@ -142,16 +142,6 @@
             setTimeout(() => {
               document.getElementById('hiddenNote').style.display = 'block';
             }, 3000);
-
-            // Генерация случайных строк с никнеймами
-            setInterval(() => {
-              const randomNickname = nicknames[Math.floor(Math.random() * nicknames.length)];
-              const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-              const message = `[${randomNickname}]: ${randomMessage}`;
-              const hiddenMessageElement = document.createElement("div");
-              hiddenMessageElement.textContent = message;
-              document.getElementById('hiddenNote').appendChild(hiddenMessageElement);
-            }, 5000); // Каждые 5 секунд
           }, 3000);
         } else {
           alert('Н3в3pHЫЙ kЛЮ4. П0ПЫтk@ cн0в@.');
@@ -178,6 +168,14 @@
           break;
       }
       document.getElementById('monsterSelected').innerHTML = monsterText;
+
+      // Генерация случайной строки с никнеймами при клике на монстра
+      const randomNickname = nicknames[Math.floor(Math.random() * nicknames.length)];
+      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+      const message = `[${randomNickname}]: ${randomMessage}`;
+      const hiddenMessageElement = document.createElement("div");
+      hiddenMessageElement.textContent = message;
+      document.getElementById('hiddenNote').appendChild(hiddenMessageElement);
     }
   </script>
 </body>
