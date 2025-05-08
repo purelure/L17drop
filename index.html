@@ -106,6 +106,18 @@
   <audio id="glitchSound" src="https://freesound.org/data/previews/331/331912_3248244-lq.mp3" preload="auto"></audio>
 
   <script>
+    // Никнеймы и сообщения
+    const nicknames = ["FlOx", "puldogs", "SAriN", "Sheran", "AkSeon", "DodgeR", "Gogle", "Vondalei"];
+    const messages = [
+      "u cAn'T esC4pE",
+      "th3y s33 y0u",
+      "i7's 70o l4t3",
+      "th3 s3rv3r n3v3r f0rg37s",
+      "y0u're 1ns1d3 n0w",
+      "whY d1D y0u c0nn3cT?",
+      "th3 3y3s 4r3 0p3n"
+    ];
+
     function startSession() {
       // Включаем фоновый звук
       const backgroundSound = document.getElementById('backgroundSound');
@@ -122,41 +134,4 @@
         if (value === '01042014') {
           document.getElementById('intro').innerHTML = "З@гpyзк@ пpoфuЛя...";
           setTimeout(() => {
-            document.getElementById('intro').innerHTML = "<span style='color:red'>[0x0033FATALERROR]: H4ЙД3НЫ 0ШuБku B ПРОФuЛ3, OP3R@T10N D3F4UL7, C0D3: Чц кън рцины. Я. XVI</span><br>П0пы7k@ в3л0м@...";
-          }, 1500);
-          setTimeout(() => {
-            document.getElementById('intro').style.display = 'none';
-            document.getElementById('nextStep').style.display = 'block';
-            setTimeout(() => {
-              document.getElementById('hiddenNote').style.display = 'block';
-            }, 3000);
-          }, 3000);
-        } else {
-          alert('Н3в3pHЫЙ kЛЮ4. П0ПЫтk@ cн0в@.');
-        }
-      }
-    }
-
-    function selectMonster(name) {
-      const glitchSound = document.getElementById('glitchSound');
-      glitchSound.currentTime = 0;
-      glitchSound.volume = 0.3; // Сделать на 70% тише (30% от оригинальной громкости)
-      glitchSound.play().catch(e => console.warn("Ошибка воспроизведения звука:", e));
-
-      let monsterText = "";
-      switch(name) {
-        case 'NightJack':
-          monsterText = "<div class='glitch-effect'>U 7E6YA.<br><br>I F33L<br>YOU NEED.</div>";
-          break;
-        case 'Oo_oO':
-          monsterText = "<div class='glitch-effect'>VSE.<br><br>Y0UR.<br>TO GO.</div>";
-          break;
-        case 'Trogwar':
-          monsterText = "<div class='glitch-effect'>P0LY417CYA.<br><br>F34R.<br>BACK.</div>";
-          break;
-      }
-      document.getElementById('monsterSelected').innerHTML = monsterText;
-    }
-  </script>
-</body>
-</html>
+            document.getElementById('intro').innerHTML = "<span style='color:red'>[0x0033FATALERROR]: H4ЙД3НЫ 0ШuБku B ПРОФuЛ3, OP3R@T10N D3F4UL7, C0D3: Чц кън рцины. Я. XVI</span><br>П0пы7
