@@ -169,8 +169,9 @@
             document.getElementById('nextStep').style.display = 'block';
             setTimeout(() => {
               document.getElementById('hiddenNote').style.display = 'block';
-              // Добавляем дергание текста
-              document.getElementById('hiddenNote').classList.add('shake');
+              // Добавляем дергание текста только для фразы
+              const hiddenMessage = document.getElementById('hiddenNote');
+              hiddenMessage.classList.add('shake');
             }, 3000);
           }, 3000);
         } else {
@@ -202,7 +203,7 @@
       // Задний фон активируется
       document.body.classList.add('aggressive-bg');
 
-      // Генерация сообщения
+      // Генерация случайного сообщения
       const randomNickname = nicknames[Math.floor(Math.random() * nicknames.length)];
       const randomMessage = messages[Math.floor(Math.random() * messages.length)];
       const message = `[${randomNickname}]: ${randomMessage}`;
