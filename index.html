@@ -10,8 +10,18 @@
       font-family: monospace;
       padding: 20px;
       overflow: hidden;
-      transition: background-color 0.5s;
+      transition: background-color 1s ease;
     }
+
+    .aggressive-bg {
+      animation: bgPulse 1.5s infinite alternate;
+    }
+
+    @keyframes bgPulse {
+      0% { background-color: #0d0d0d; }
+      100% { background-color: #330000; }
+    }
+
     .console-box {
       border: 1px solid red;
       padding: 20px;
@@ -19,6 +29,7 @@
       max-width: 600px;
       margin: auto;
     }
+
     .input-field {
       background: none;
       border: none;
@@ -28,14 +39,17 @@
       font-size: 16px;
       margin-top: 10px;
     }
-    input[type="password"] {
-      font-family: monospace;
+
+    input[type="password"]::placeholder {
+      color: #550000;
     }
+
     .hidden-message {
       display: none;
       margin-top: 10px;
       color: red;
     }
+
     .text-button {
       background: none;
       border: none;
@@ -45,35 +59,30 @@
       cursor: pointer;
       text-decoration: underline;
     }
+
     .text-button:hover {
       color: #ff0000;
     }
+
     .blinking-cursor::after {
       content: ' █';
       animation: blink 1s step-start infinite;
     }
+
     @keyframes blink {
       50% { opacity: 0; }
     }
+
     .centered {
       text-align: center;
     }
+
     #startSession {
       display: block;
     }
+
     #intro, #nextStep {
       display: none;
-    }
-    .color-cycle {
-      animation: aggressiveCycle 3s infinite;
-    }
-    @keyframes aggressiveCycle {
-      0%   { background-color: #0d0d0d; }
-      20%  { background-color: #3b0a18; }
-      40%  { background-color: #1a001a; }
-      60%  { background-color: #300000; }
-      80%  { background-color: #1a001a; }
-      100% { background-color: #0d0d0d; }
     }
   </style>
 </head>
@@ -87,10 +96,10 @@
     <div id="intro">
       З@гpузk@ 7epMuHaЛ@...<br><br>
       Вв3дит3 kЛю4 д0cтyп@ или п4р0лb:<span class="blinking-cursor"></span>
-      <input type="password" class="input-field" id="accessKey" onkeydown="checkKey(event)">
+      <input type="password" class="input-field" id="accessKey" placeholder="********" onkeydown="checkKey(event)">
     </div>
 
-    <div id="nextStep">
+    <div id="nextStep" style="display: none;">
       Д0cтyп p@зp3ш3н. П0Льз0в@т3Ль: t35t_uz3r_013<br>
       П0cЛ3дн99 @kтuвн0c7ь: 01.04.2014<br><br>
       <span style="color: red">/l50/0P3R4T10N M3W7TW0</span> — 3@гpyзк@...<br><br>
@@ -103,27 +112,25 @@
     </div>
   </div>
 
+  <!-- Фоновый звук -->
   <audio id="backgroundSound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto" loop></audio>
+  <!-- Звук искажения -->
   <audio id="glitchSound" src="https://freesound.org/data/previews/331/331912_3248244-lq.mp3" preload="auto"></audio>
 
   <script>
-    const nicknames = ["FlOx", "puldogs", "SAriN", "Sheran", "AkSeon", "DodgeR", "Gogle", "Vondalei"];
+    const nicknames = [
+      "FlOx", "puldogs", "SAriN", "Sheran", "AkSeon", "DodgeR", "Gogle", "Vondalei",
+      "Fa_N_Ta", "x_StReLoK_x", "Generalisimys", "Шершень", "ALex Major Luck", "SlamperPro", "poky profy",
+      "Tendo", "Steepsy", "Cold Siemens", "Hitch", "HWOARANG", "Gorg", "klokan", "Nedji",
+      "Злая Няшка", "НЯШКА СТРИДЖИ", "Enotik", "FacePalm", "marianna-m", "володя король"
+    ];
+
     const messages = [
-      "u cAn'T esC4pE",
-      "th3y s33 y0u",
-      "i7's 70o l4t3",
-      "th3 s3rv3r n3v3r f0rg37s",
-      "y0u're 1ns1d3 n0w",
-      "whY d1D y0u c0nn3cT?",
-      "th3 3y3s 4r3 0p3n",
-      "th1s 1s 7h3 3nD",
-      "f1nd m3 1n s1l3nc3",
-      "n07h1ng w1ll b3 7h3 s4m3",
-      "79.174.66.98",
-      "sh4d0ws kn0w y0ur n4m3",
-      "4ctiv4t1ng pr0t0c0l 17",
-      "wh0 4m 1?",
-      "w4k3 up, 0p3r4t0r"
+      "u cAn'T esC4pE", "th3y s33 y0u", "i7's 70o l4t3", "th3 s3rv3r n3v3r f0rg37s",
+      "y0u're 1ns1d3 n0w", "whY d1D y0u c0nn3cT?", "th3 3y3s 4r3 0p3n", "79.174.66.98 — NOTED.",
+      "rUn wh1l3 u c4n", "n0 3sc4p3 fr0m th3 m1rr0r", "pr0t0c0l _p4nd0rA_ 1s l1v3",
+      "th3y kn0w ur n4m3", "3ntrY c0rrupt3d... r3st4rt", "wh0 t01d u?", "1nv4s10n c0mpl3t3d",
+      "shutt1ng d0wn... or n0t?", "rec0nn3ct... f4il3d", "wh3r3 1s ur s0u1?", "3rr0r 666: YOU"
     ];
 
     function startSession() {
@@ -141,7 +148,8 @@
         if (value === '01042014') {
           document.getElementById('intro').innerHTML = "З@гpyзк@ пpoфuЛя...";
           setTimeout(() => {
-            document.getElementById('intro').innerHTML = "<span style='color:red'>[0x0033FATALERROR]: H4ЙД3НЫ 0ШuБku B ПРОФuЛ3, OP3R@T10N D3F4UL7, C0D3: Чц кън рцины. Я. XVI</span><br>П0пы7k@ в3л0м@...";
+            document.getElementById('intro').innerHTML =
+              "<span style='color:red'>[0x0033FATALERROR]: H4ЙД3НЫ 0ШuБku B ПРОФuЛ3, OP3R@T10N D3F4UL7, C0D3: Чц кън рцины. Я. XVI</span><br>П0пы7k@ в3л0м@...";
           }, 1500);
           setTimeout(() => {
             document.getElementById('intro').style.display = 'none';
@@ -159,7 +167,7 @@
     function selectMonster(name) {
       const glitchSound = document.getElementById('glitchSound');
       glitchSound.currentTime = 0;
-      glitchSound.volume = 0.3;
+      glitchSound.volume = 0.1;
       glitchSound.play().catch(e => console.warn("Ошибка воспроизведения звука:", e));
 
       let monsterText = "";
@@ -176,10 +184,10 @@
       }
       document.getElementById('monsterSelected').innerHTML = monsterText;
 
-      // Анимация фона навсегда
-      document.body.classList.add('color-cycle');
+      // Задний фон активируется
+      document.body.classList.add('aggressive-bg');
 
-      // Рандомная строка
+      // Генерация сообщения
       const randomNickname = nicknames[Math.floor(Math.random() * nicknames.length)];
       const randomMessage = messages[Math.floor(Math.random() * messages.length)];
       const message = `[${randomNickname}]: ${randomMessage}`;
