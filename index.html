@@ -72,10 +72,10 @@
     <div id="intro">
       З@гpузk@ 7epMuHaЛ@...<br><br>
       Вв3дит3 kЛю4 д0cтyп@ или п4р0лb:<span class="blinking-cursor"></span>
-      <input type="text" class="input-field" id="accessKey" onkeydown="checkKey(event)">
+      <input type="password" class="input-field" id="accessKey" onkeydown="checkKey(event)">
     </div>
 
-    <div id="nextStep" style="display: none;">
+    <div id="nextStep">
       Д0cтyп p@зp3ш3н. П0Льз0в@т3Ль: t35t_uz3r_013<br>
       П0cЛ3дн99 @kтuвн0c7ь: 01.04.2014<br><br>
       <span style="color: red">/l50/0P3R4T10N M3W7TW0</span> — 3@гpyзк@...<br><br>
@@ -83,37 +83,37 @@
       <button class="text-button" onclick="selectMonster('NightJack')">NightJack</button>
       <button class="text-button" onclick="selectMonster('Oo_oO')">Oo_oO</button>
       <button class="text-button" onclick="selectMonster('Trogwar')">Trogwar</button><br>
-      <span class="hidden-message glitch-effect" id="hiddenNote">[C1CT3M@]: 3t0 н3 uгpa. Eсли ты 3т0 видuшb — ты yж3 внy7pu. Б3гИ.</span>
+      <span class="hidden-message" id="hiddenNote">[C1CT3M@]: 3t0 н3 uгpa. Eсли ты 3т0 видuшb — ты yж3 внy7pu. Б3гИ.</span>
       <div id="monsterSelected" style="margin-top:15px;"></div>
     </div>
   </div>
 
-  <!-- Тревожный фоновый звук -->
+  <!-- Фоновый звук -->
   <audio id="backgroundSound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto" loop></audio>
 
   <!-- Звук искажения -->
   <audio id="glitchSound" src="https://freesound.org/data/previews/331/331912_3248244-lq.mp3" preload="auto"></audio>
 
   <script>
-    // Никнеймы и сообщения
     const nicknames = [
       "FlOx", "puldogs", "SAriN", "Sheran", "AkSeon", "DodgeR", "Gogle", "Vondalei",
-      "Fa_N_Ta", "x_StReLoK_x", "Generalisimys", "Шершень", "ALex Major Luck", 
-      "SlamperPro", "poky profy", "Tendo", "Steepsy", "Cold Siemens", "Hitch", 
-      "HWOARANG", "Gorg", "klokan", "Nedji", "Злая Няшка", "НЯШКА СТРИДЖИ", 
-      "Enotik", "FacePalm", "marianna-m", "володя король"
+      "Fa_N_Ta", "x_StReLoK_x", "Generalisimys", "Шершень", "ALex Major Luck", "SlamperPro", 
+      "poky profy", "Tendo", "Steepsy", "Cold Siemens",
+      "Hitch", "HWOARANG", "Gorg", "klokan", "Nedji", "Злая Няшка", 
+      "НЯШКА СТРИДЖИ", "Enotik", "FacePalm", "marianna-m", "володя король"
     ];
-    
+
     const messages = [
-      "u cAn'T esC4pE", "th3y s33 y0u", "i7's 70o l4t3", "th3 s3rv3r n3v3r f0rg37s", 
-      "y0u're 1ns1d3 n0w", "whY d1D y0u c0nn3cT?", "th3 3y3s 4r3 0p3n", 
-      "79.174.66.98 — Unstable connection detected.", "b3tr4y3r d3t3ct3d", "n0t y0ur f4uLt"
+      "u cAn'T esC4pE", "th3y s33 y0u", "i7's 70o l4t3", "th3 s3rv3r n3v3r f0rg37s", "y0u're 1ns1d3 n0w",
+      "whY d1D y0u c0nn3cT?", "th3 3y3s 4r3 0p3n", "y0u w3r3n't m34n7 70 b3 h3r3", "d4t4 currupt10n: 7r4c3 10st",
+      "b4ckd00r: 4ct1v4t3d", "S3QU3NC3 I/II/III → d3st4bl1z3d", "L3@k d3t3ct3d // s3cur1ty br34ch",
+      "th3 fiL3 w4sn't d3L3t3d...", "w4tch1ng... w41t1ng...", "c4n't c4nc3l pr0c3ss...", "0UTPVT ≠ INPV7",
+      "n0 3x17 3x1st5", "r3qu357: c0d3_xFAL7", "p@7h f0rg0tt3n — y0u'r3 l0s7", "79.174.66.98: 1N7RU51ON D3T3CT3D"
     ];
 
     function startSession() {
-      // Включаем фоновый звук
       const backgroundSound = document.getElementById('backgroundSound');
-      backgroundSound.volume = 0.1; // Сделать на 90% тише (10% от оригинальной громкости)
+      backgroundSound.volume = 0.1;
       backgroundSound.play().catch(e => console.warn('Ошибка воспроизведения фонового звука:', e));
 
       document.getElementById('startSession').style.display = 'none';
@@ -144,24 +144,23 @@
     function selectMonster(name) {
       const glitchSound = document.getElementById('glitchSound');
       glitchSound.currentTime = 0;
-      glitchSound.volume = 0.1; // Сделать на 90% тише (10% от оригинальной громкости)
+      glitchSound.volume = 0.1;
       glitchSound.play().catch(e => console.warn("Ошибка воспроизведения звука:", e));
 
       let monsterText = "";
       switch(name) {
         case 'NightJack':
-          monsterText = "<div class='glitch-effect'>U 7E6YA.<br><br>I F33L<br>YOU NEED.</div>";
+          monsterText = "<div>U 7E6YA.<br><br>I F33L<br>YOU NEED.</div>";
           break;
         case 'Oo_oO':
-          monsterText = "<div class='glitch-effect'>VSE.<br><br>Y0UR.<br>TO GO.</div>";
+          monsterText = "<div>VSE.<br><br>Y0UR.<br>TO GO.</div>";
           break;
         case 'Trogwar':
-          monsterText = "<div class='glitch-effect'>P0LY417CYA.<br><br>F34R.<br>BACK.</div>";
+          monsterText = "<div>P0LY417CYA.<br><br>F34R.<br>BACK.</div>";
           break;
       }
       document.getElementById('monsterSelected').innerHTML = monsterText;
 
-      // Генерация случайной строки с никнеймами при клике на монстра
       const randomNickname = nicknames[Math.floor(Math.random() * nicknames.length)];
       const randomMessage = messages[Math.floor(Math.random() * messages.length)];
       const message = `[${randomNickname}]: ${randomMessage}`;
