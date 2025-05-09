@@ -60,6 +60,17 @@
     #intro, #nextStep {
       display: none;
     }
+    @keyframes darkPulse {
+      0% { background: linear-gradient(135deg, #1a0000, #000000); }
+      25% { background: linear-gradient(135deg, #2a0033, #000022); }
+      50% { background: linear-gradient(135deg, #000000, #110022); }
+      75% { background: linear-gradient(135deg, #220000, #001122); }
+      100% { background: linear-gradient(135deg, #1a0000, #000000); }
+    }
+    .dark-background {
+      animation: darkPulse 6s infinite ease-in-out;
+      background-size: 400% 400%;
+    }
   </style>
 </head>
 <body>
@@ -72,7 +83,7 @@
     <div id="intro">
       З@гpузk@ 7epMuHaЛ@...<br><br>
       Вв3дит3 kЛю4 д0cтyп@ или п4р0лb:<span class="blinking-cursor"></span>
-      <input type="password" class="input-field" id="accessKey" onkeydown="checkKey(event)">
+      <input type="text" class="input-field" id="accessKey" onkeydown="checkKey(event)">
     </div>
 
     <div id="nextStep">
@@ -88,27 +99,17 @@
     </div>
   </div>
 
-  <!-- Фоновый звук -->
   <audio id="backgroundSound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto" loop></audio>
-
-  <!-- Звук искажения -->
   <audio id="glitchSound" src="https://freesound.org/data/previews/331/331912_3248244-lq.mp3" preload="auto"></audio>
 
   <script>
-    const nicknames = [
-      "FlOx", "puldogs", "SAriN", "Sheran", "AkSeon", "DodgeR", "Gogle", "Vondalei",
-      "Fa_N_Ta", "x_StReLoK_x", "Generalisimys", "Шершень", "ALex Major Luck", "SlamperPro", 
-      "poky profy", "Tendo", "Steepsy", "Cold Siemens",
-      "Hitch", "HWOARANG", "Gorg", "klokan", "Nedji", "Злая Няшка", 
-      "НЯШКА СТРИДЖИ", "Enotik", "FacePalm", "marianna-m", "володя король"
-    ];
+    const nicknames = ["FlOx", "puldogs", "SAriN", "Sheran", "AkSeon", "DodgeR", "Gogle", "Vondalei", "Fa_N_Ta", "x_StReLoK_x", "Generalisimys", "Шершень", "ALex Major Luck", "SlamperPro", "poky profy", "Tendo", "Steepsy", "Cold Siemens", "Hitch", "HWOARANG", "Gorg", "klokan", "Nedji", "Злая Няшка", "НЯШКА СТРИДЖИ", "Enotik", "FacePalm", "marianna-m", "володя король"];
 
     const messages = [
       "u cAn'T esC4pE", "th3y s33 y0u", "i7's 70o l4t3", "th3 s3rv3r n3v3r f0rg37s", "y0u're 1ns1d3 n0w",
-      "whY d1D y0u c0nn3cT?", "th3 3y3s 4r3 0p3n", "y0u w3r3n't m34n7 70 b3 h3r3", "d4t4 currupt10n: 7r4c3 10st",
-      "b4ckd00r: 4ct1v4t3d", "S3QU3NC3 I/II/III → d3st4bl1z3d", "L3@k d3t3ct3d // s3cur1ty br34ch",
-      "th3 fiL3 w4sn't d3L3t3d...", "w4tch1ng... w41t1ng...", "c4n't c4nc3l pr0c3ss...", "0UTPVT ≠ INPV7",
-      "n0 3x17 3x1st5", "r3qu357: c0d3_xFAL7", "p@7h f0rg0tt3n — y0u'r3 l0s7", "79.174.66.98: 1N7RU51ON D3T3CT3D"
+      "whY d1D y0u c0nn3cT?", "th3 3y3s 4r3 0p3n", "y0u sh0u1dn'7 b3 h3r3", "s0m37h1ng 15 wr0ng", "79.174.66.98",
+      "1 kn0w wh3r3 y0u liv3", "d0n't l00k b3h1nd y0u", "w3'r3 w4tch1ng", "0p3r4t10n r3b00t", "f1l3s w3r3 s3nt",
+      "y0u'v3 b33n m4rk3d", "m0n1t0r1ng 3n4bl3d", "s1gn4l n07 c14r", "3rr0r: m3m0ry 0v3rwr1tt3n", "r3c0nn3ct1ng..."
     ];
 
     function startSession() {
@@ -146,6 +147,8 @@
       glitchSound.currentTime = 0;
       glitchSound.volume = 0.1;
       glitchSound.play().catch(e => console.warn("Ошибка воспроизведения звука:", e));
+
+      document.body.classList.add('dark-background');
 
       let monsterText = "";
       switch(name) {
