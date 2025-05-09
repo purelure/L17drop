@@ -84,19 +84,6 @@
     #intro, #nextStep {
       display: none;
     }
-
-    /* Анимация дергания текста */
-    .shake {
-      animation: shake 0.5s infinite;
-    }
-
-    @keyframes shake {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      50% { transform: translateX(5px); }
-      75% { transform: translateX(-5px); }
-      100% { transform: translateX(0); }
-    }
   </style>
 </head>
 <body>
@@ -169,9 +156,6 @@
             document.getElementById('nextStep').style.display = 'block';
             setTimeout(() => {
               document.getElementById('hiddenNote').style.display = 'block';
-              // Добавляем дергание текста только для фразы
-              const hiddenMessage = document.getElementById('hiddenNote');
-              hiddenMessage.classList.add('shake');
             }, 3000);
           }, 3000);
         } else {
@@ -203,7 +187,7 @@
       // Задний фон активируется
       document.body.classList.add('aggressive-bg');
 
-      // Генерация случайного сообщения
+      // Генерация сообщения
       const randomNickname = nicknames[Math.floor(Math.random() * nicknames.length)];
       const randomMessage = messages[Math.floor(Math.random() * messages.length)];
       const message = `[${randomNickname}]: ${randomMessage}`;
