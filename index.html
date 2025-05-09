@@ -10,21 +10,8 @@
       font-family: monospace;
       padding: 20px;
       overflow: hidden;
-      transition: background 2s ease;
+      transition: background-color 0.5s;
     }
-
-    .color-cycle {
-      animation: darkCycle 10s infinite alternate;
-    }
-
-    @keyframes darkCycle {
-      0%   { background-color: #0d0d0d; }
-      25%  { background-color: #1a0f1f; }
-      50%  { background-color: #120d1d; }
-      75%  { background-color: #0d1a1a; }
-      100% { background-color: #0d0d0d; }
-    }
-
     .console-box {
       border: 1px solid red;
       padding: 20px;
@@ -32,7 +19,6 @@
       max-width: 600px;
       margin: auto;
     }
-
     .input-field {
       background: none;
       border: none;
@@ -42,13 +28,14 @@
       font-size: 16px;
       margin-top: 10px;
     }
-
+    input[type="password"] {
+      font-family: monospace;
+    }
     .hidden-message {
       display: none;
       margin-top: 10px;
       color: red;
     }
-
     .text-button {
       background: none;
       border: none;
@@ -58,34 +45,35 @@
       cursor: pointer;
       text-decoration: underline;
     }
-
     .text-button:hover {
       color: #ff0000;
     }
-
     .blinking-cursor::after {
       content: ' █';
       animation: blink 1s step-start infinite;
     }
-
     @keyframes blink {
       50% { opacity: 0; }
     }
-
     .centered {
       text-align: center;
     }
-
     #startSession {
       display: block;
     }
-
     #intro, #nextStep {
       display: none;
     }
-
-    .message-line {
-      margin-top: 5px;
+    .color-cycle {
+      animation: aggressiveCycle 3s infinite;
+    }
+    @keyframes aggressiveCycle {
+      0%   { background-color: #0d0d0d; }
+      20%  { background-color: #3b0a18; }
+      40%  { background-color: #1a001a; }
+      60%  { background-color: #300000; }
+      80%  { background-color: #1a001a; }
+      100% { background-color: #0d0d0d; }
     }
   </style>
 </head>
@@ -115,25 +103,27 @@
     </div>
   </div>
 
-  <!-- Тревожный фоновый звук -->
   <audio id="backgroundSound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto" loop></audio>
-
-  <!-- Звук искажения -->
   <audio id="glitchSound" src="https://freesound.org/data/previews/331/331912_3248244-lq.mp3" preload="auto"></audio>
 
   <script>
-    const nicknames = [
-      "FlOx", "puldogs", "SAriN", "Sheran", "AkSeon", "DodgeR", "Gogle", "Vondalei",
-      "Fa_N_Ta", "x_StReLoK_x", "Generalisimys", "Шершень", "ALex Major Luck", "SlamperPro", "poky profy", "Tendo",
-      "Steepsy", "Cold Siemens", "Hitch", "HWOARANG", "Gorg", "klokan", "Nedji", "Злая Няшка", "НЯШКА СТРИДЖИ",
-      "Enotik", "FacePalm", "marianna-m", "володя король"
-    ];
-
+    const nicknames = ["FlOx", "puldogs", "SAriN", "Sheran", "AkSeon", "DodgeR", "Gogle", "Vondalei"];
     const messages = [
-      "u cAn'T esC4pE", "th3y s33 y0u", "i7's 70o l4t3", "th3 s3rv3r n3v3r f0rg37s",
-      "y0u're 1ns1d3 n0w", "whY d1D y0u c0nn3cT?", "th3 3y3s 4r3 0p3n",
-      "IP: 79.174.66.98 — d0n't f0rget", "Y0ur pr0fil3 w@s c0rRuP73d", "N0 v4cuum 0ut", "y0u kn0w 700 much",
-      "th3 fi13s r still 0p3n", "th3 0ld 0n3 c0m3s b@ck", "wh0 c@l13d 1t?", "tim3's unr@v3ling", "l3@v3 whil3 u c@n"
+      "u cAn'T esC4pE",
+      "th3y s33 y0u",
+      "i7's 70o l4t3",
+      "th3 s3rv3r n3v3r f0rg37s",
+      "y0u're 1ns1d3 n0w",
+      "whY d1D y0u c0nn3cT?",
+      "th3 3y3s 4r3 0p3n",
+      "th1s 1s 7h3 3nD",
+      "f1nd m3 1n s1l3nc3",
+      "n07h1ng w1ll b3 7h3 s4m3",
+      "79.174.66.98",
+      "sh4d0ws kn0w y0ur n4m3",
+      "4ctiv4t1ng pr0t0c0l 17",
+      "wh0 4m 1?",
+      "w4k3 up, 0p3r4t0r"
     ];
 
     function startSession() {
@@ -167,33 +157,33 @@
     }
 
     function selectMonster(name) {
-      document.body.classList.add('color-cycle');
-
       const glitchSound = document.getElementById('glitchSound');
       glitchSound.currentTime = 0;
-      glitchSound.volume = 0.1;
+      glitchSound.volume = 0.3;
       glitchSound.play().catch(e => console.warn("Ошибка воспроизведения звука:", e));
 
       let monsterText = "";
       switch(name) {
         case 'NightJack':
-          monsterText = "U 7E6YA.<br><br>I F33L<br>YOU NEED.";
+          monsterText = "<div>U 7E6YA.<br><br>I F33L<br>YOU NEED.</div>";
           break;
         case 'Oo_oO':
-          monsterText = "VSE.<br><br>Y0UR.<br>TO GO.";
+          monsterText = "<div>VSE.<br><br>Y0UR.<br>TO GO.</div>";
           break;
         case 'Trogwar':
-          monsterText = "P0LY417CYA.<br><br>F34R.<br>BACK.";
+          monsterText = "<div>P0LY417CYA.<br><br>F34R.<br>BACK.</div>";
           break;
       }
+      document.getElementById('monsterSelected').innerHTML = monsterText;
 
-      document.getElementById('monsterSelected').innerHTML = `<div>${monsterText}</div>`;
+      // Анимация фона навсегда
+      document.body.classList.add('color-cycle');
 
+      // Рандомная строка
       const randomNickname = nicknames[Math.floor(Math.random() * nicknames.length)];
       const randomMessage = messages[Math.floor(Math.random() * messages.length)];
       const message = `[${randomNickname}]: ${randomMessage}`;
       const hiddenMessageElement = document.createElement("div");
-      hiddenMessageElement.className = "message-line";
       hiddenMessageElement.textContent = message;
       document.getElementById('hiddenNote').appendChild(hiddenMessageElement);
     }
